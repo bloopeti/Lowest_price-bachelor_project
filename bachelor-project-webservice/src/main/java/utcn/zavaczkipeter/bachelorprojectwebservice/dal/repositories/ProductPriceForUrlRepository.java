@@ -7,5 +7,5 @@ import utcn.zavaczkipeter.bachelorprojectwebservice.dal.entities.ProductPriceFor
 
 @Service
 @CrossOrigin(origins = "http://localhost:4200")
-public interface ProductPriceForURLRepository extends JpaRepository<ProductPriceForUrl, Integer> {
+public interface ProductPriceForUrlRepository extends JpaRepository<ProductPriceForUrl, Integer> {
 }

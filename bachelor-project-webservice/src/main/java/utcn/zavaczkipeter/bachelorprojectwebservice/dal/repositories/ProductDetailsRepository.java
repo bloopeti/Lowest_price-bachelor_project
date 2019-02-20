@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import utcn.zavaczkipeter.bachelorprojectwebservice.dal.entities.Product;
 import utcn.zavaczkipeter.bachelorprojectwebservice.dal.entities.ProductDetails;
 
+import java.util.Optional;
+
 @Service
 @CrossOrigin(origins = "http://localhost:4200")
 public interface ProductDetailsRepository extends JpaRepository<ProductDetails, Integer> {
-    ProductDetails findByProduct(Product product);
+    Optional<ProductDetails> findByProduct(Product product);
 }

@@ -1,0 +1,85 @@
+package utcn.zavaczkipeter.bachelorprojectwebservice.bll.crud;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos.ProductDto;
+import utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos.ProductPriceForUrlDto;
+import utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos.ProductUrlDto;
+import utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos.converters.ProductConverter;
+import utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos.converters.ProductPriceForUrlConverter;
+import utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos.converters.ProductUrlConverter;
+import utcn.zavaczkipeter.bachelorprojectwebservice.dal.entities.Product;
+import utcn.zavaczkipeter.bachelorprojectwebservice.dal.entities.ProductPriceForUrl;
+import utcn.zavaczkipeter.bachelorprojectwebservice.dal.entities.ProductUrl;
+import utcn.zavaczkipeter.bachelorprojectwebservice.dal.repositories.ProductUrlRepository;
+
+import java.util.List;
+
+@Service
+public class ProductUrlBll {
+    @Autowired
+    ProductUrlRepository productUrlRepository;
+    @Autowired
+    private ProductUrlConverter productUrlConverter;
+    @Autowired
+    ProductBll productBll;
+    @Autowired
+    ProductConverter productConverter;
+    @Autowired
+    ProductPriceForUrlBll productPriceForUrlBll;
+    @Autowired
+    ProductPriceForUrlConverter productPriceForUrlConverter;
+
+    public List<ProductUrlDto> getAllProductUrls() {
+        return productUrlConverter.entityListToDtoList(productUrlRepository.findAll());
+    }
+
+    public List<ProductUrlDto> getAllProductUrlsByProduct(ProductDto productDto) {
+        return productUrlConverter.entityListToDtoList(productUrlRepository.findByProduct(productConverter.dtoToEntity(productDto)).get());
+    }
+
+    public List<ProductUrlDto> getAllProductUrlsByDomain(String domain) {
+        return productUrlConverter.entityListToDtoList(productUrlRepository.findByDomain(domain).get());
+    }
+
+    public String addProductUrl(ProductUrlDto productUrlDto) {
+        if (productBll.getProductById(productUrlDto.getProductId()) == null)
+            return "PRODUCT URL ADD FAILED: Product with this ID doesn't exist";
+        ProductUrl productUrl = productUrlRepository.save(productUrlConverter.dtoToEntity(productUrlDto));
+
+        ProductPriceForUrlDto productPriceForUrlDto = new ProductPriceForUrlDto();
+        productPriceForUrlDto.setProductUrlId(productUrl.getId());
+        if (productPriceForUrlBll.addProductPriceForUrl(productPriceForUrlDto).contains("SUCCESS")) {
+            productUrl.setProductPriceForUrl(productPriceForUrlConverter.dtoToEntity(productPriceForUrlDto));
+            productUrlRepository.save(productUrl);
+
+            if (productBll.addUrlToProduct(productUrlConverter.dtoToEntity(productUrlDto)).contains("SUCCESS"))
+                return "PRODUCT URL ADD SUCCESS";
+            else
+                return "PRODUCT URL ADD FAILED: Wasn't able to add URL to Product's list";
+        } else
+            return "PRODUCT URL ADD WARNING: Wasn't able to add PPFU for this URL";
+    }
+
+    public String updateProductUrl(ProductUrlDto productUrlDto) {
+        ProductUrl updatedProductUrl;
+        String reason = "ProductUrl";
+        if (productUrlRepository.findById(productUrlDto.getId()).isPresent()) {
+            updatedProductUrl = productUrlRepository.findById(productUrlDto.getId()).get();
+            updatedProductUrl.setDomain(productUrlDto.getDomain());
+            updatedProductUrl.setUrl(productUrlDto.getUrl());
+            productUrlRepository.save(updatedProductUrl);
+            return "PRODUCT URL UPDATE SUCCESSFUL";
+        }
+        return "PRODUCT URL UPDATE FAILED: " + reason + " with this ID doesn't exist";
+    }
+
+    public String deleteProductUrl(int id) {
+        String reason = "ProductUrl";
+        if (productUrlRepository.findById(id).isPresent()) {
+            productUrlRepository.deleteById(id);
+            return "PRODUCT URL DELETE SUCCESSFUL";
+        }
+        return "PRODUCT URL DELETE FAILED: " + reason + " with this ID doesn't exist";
+     }
+}
