@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table
-public class ProductPriceForURL {
+public class ProductPriceForUrl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -14,7 +14,7 @@ public class ProductPriceForURL {
     private String currency;
     @OneToOne(optional = false)
     @JoinColumn(name = "product_url_id")
-    private ProductURL productURL;
+    private ProductUrl productUrl;
 
     public int getId() {
         return id;
@@ -40,11 +40,11 @@ public class ProductPriceForURL {
         this.currency = currency;
     }
 
-    public ProductURL getProductURL() {
-        return productURL;
+    public ProductUrl getProductUrl() {
+        return productUrl;
     }
 
-    public void setProductURL(ProductURL productURL) {
-        this.productURL = productURL;
+    public void setProductUrl(ProductUrl productUrl) {
+        this.productUrl = productUrl;
     }
 }

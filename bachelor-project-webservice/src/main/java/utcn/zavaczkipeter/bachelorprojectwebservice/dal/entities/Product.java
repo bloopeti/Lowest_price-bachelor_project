@@ -14,7 +14,7 @@ public class Product {
     @OneToOne(mappedBy = "product")
     private ProductDetails productDetails;
     @OneToMany(mappedBy = "product")
-    private List<ProductURL> urls;
+    private List<ProductUrl> urls;
     @ManyToMany(mappedBy = "trackedProduct")
     private List<User> trackingUser;
 
@@ -42,11 +42,11 @@ public class Product {
         this.productDetails = productDetails;
     }
 
-    public List<ProductURL> getUrls() {
+    public List<ProductUrl> getUrls() {
         return urls;
     }
 
-    public void setUrls(List<ProductURL> urls) {
+    public void setUrls(List<ProductUrl> urls) {
         this.urls = urls;
     }
 
