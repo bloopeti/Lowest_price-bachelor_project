@@ -2,11 +2,11 @@ package utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos;
 
 import java.util.List;
 
-public class ProductDTO {
+public class ProductDto {
     private int id;
     private String name;
-    private int productDetailsId;
-    private List<ProductUrlDTO> urls;
+    private ProductDetailsDto productDetails;
+    private List<ProductUrlDto> urls;
 
     public int getId() {
         return id;
@@ -24,19 +24,19 @@ public class ProductDTO {
         this.name = name;
     }
 
-    public int getProductDetailsId() {
-        return productDetailsId;
+    public ProductDetailsDto getProductDetails() {
+        return productDetails;
     }
 
-    public void setProductDetailsId(int productDetailsId) {
-        this.productDetailsId = productDetailsId;
+    public void setProductDetails(ProductDetailsDto productDetails) {
+        this.productDetails = productDetails;
     }
 
-    public List<ProductUrlDTO> getUrls() {
+    public List<ProductUrlDto> getUrls() {
         return urls;
     }
 
-    public void setUrls(List<ProductUrlDTO> urls) {
+    public void setUrls(List<ProductUrlDto> urls) {
         this.urls = urls;
     }
 }

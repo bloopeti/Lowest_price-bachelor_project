@@ -1,11 +1,11 @@
 package utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos;
 
-public class ProductUrlDTO {
+public class ProductUrlDto {
     private int id;
     private String url;
     private String domain;
     private int productId;
-    private ProductPriceForUrlDTO productPriceForUrl;
+    private ProductPriceForUrlDto productPriceForUrl;
 
     public int getId() {
         return id;
@@ -39,11 +39,11 @@ public class ProductUrlDTO {
         this.productId = productId;
     }
 
-    public ProductPriceForUrlDTO getProductPriceForUrl() {
+    public ProductPriceForUrlDto getProductPriceForUrl() {
         return productPriceForUrl;
     }
 
-    public void setProductPriceForUrl(ProductPriceForUrlDTO productPriceForUrl) {
+    public void setProductPriceForUrl(ProductPriceForUrlDto productPriceForUrl) {
         this.productPriceForUrl = productPriceForUrl;
     }
 }

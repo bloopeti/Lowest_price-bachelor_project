@@ -2,12 +2,12 @@ package utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos;
 
 import java.util.List;
 
-public class UserDTO {
+public class UserDto {
     private int id;
     private String emailAddress;
     private String password;
     private int isAdmin;
-    private List<ProductDTO> trackedProduct;
+    private List<ProductDto> trackedProducts;
 
     public int getId() {
         return id;
@@ -41,11 +41,11 @@ public class UserDTO {
         this.isAdmin = isAdmin;
     }
 
-    public List<ProductDTO> getTrackedProduct() {
-        return trackedProduct;
+    public List<ProductDto> getTrackedProducts() {
+        return trackedProducts;
     }
 
-    public void setTrackedProduct(List<ProductDTO> trackedProduct) {
-        this.trackedProduct = trackedProduct;
+    public void setTrackedProducts(List<ProductDto> trackedProducts) {
+        this.trackedProducts = trackedProducts;
     }
 }

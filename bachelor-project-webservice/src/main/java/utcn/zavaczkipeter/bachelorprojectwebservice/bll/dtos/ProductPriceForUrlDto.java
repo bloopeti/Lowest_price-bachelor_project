@@ -1,6 +1,6 @@
 package utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos;
 
-public class ProductPriceForUrlDTO {
+public class ProductPriceForUrlDto {
     private int id;
     private float price;
     private String currency;

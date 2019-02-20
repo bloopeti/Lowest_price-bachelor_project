@@ -1,8 +1,8 @@
 package utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos;
 
-public class ProductDetailsDTO {
+public class ProductDetailsDto {
     private int id;
-    private ProductDTO product;
+    private int productId;
     private String brand;
 
     public int getId() {
@@ -13,12 +13,12 @@ public class ProductDetailsDTO {
         this.id = id;
     }
 
-    public ProductDTO getProduct() {
-        return product;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setProduct(ProductDTO product) {
-        this.product = product;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public String getBrand() {

@@ -17,7 +17,7 @@ public class User {
     private int isAdmin;
     @ManyToMany
     @JoinTable
-    private List<Product> trackedProduct;
+    private List<Product> trackedProducts;
 
     public int getId() {
         return id;
@@ -51,11 +51,11 @@ public class User {
         this.isAdmin = isAdmin;
     }
 
-    public List<Product> getTrackedProduct() {
-        return trackedProduct;
+    public List<Product> getTrackedProducts() {
+        return trackedProducts;
     }
 
-    public void setTrackedProduct(List<Product> trackedProduct) {
-        this.trackedProduct = trackedProduct;
+    public void setTrackedProducts(List<Product> trackedProducts) {
+        this.trackedProducts = trackedProducts;
     }
 }
