@@ -15,7 +15,7 @@ public class Product {
     private ProductDetails productDetails;
     @OneToMany(mappedBy = "product")
     private List<ProductUrl> urls;
-    @ManyToMany(mappedBy = "trackedProduct")
+    @ManyToMany(mappedBy = "trackedProducts")
     private List<User> trackingUser;
 
     public int getId() {

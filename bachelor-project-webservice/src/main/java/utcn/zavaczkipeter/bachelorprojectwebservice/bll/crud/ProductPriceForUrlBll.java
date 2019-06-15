@@ -21,7 +21,7 @@ public class ProductPriceForUrlBll {
     }
 
     public ProductPriceForUrlDto getProductPriceForUrlById(int id) {
-        if(productPriceForUrlRepository.findById(id).isPresent())
+        if (productPriceForUrlRepository.findById(id).isPresent())
             return productPriceForUrlConverter.entityToDto(productPriceForUrlRepository.findById(id).get());
         else
             return null;
@@ -37,7 +37,8 @@ public class ProductPriceForUrlBll {
         String reason = "PPFU";
         if (productPriceForUrlRepository.findById(productPriceForUrlDto.getId()).isPresent()) {
             updatedProductPriceForUrl = productPriceForUrlRepository.findById(productPriceForUrlDto.getId()).get();
-            updatedProductPriceForUrl.setCurrency(productPriceForUrlDto.getCurrency());
+            if (productPriceForUrlDto.getCurrency() != null)
+                updatedProductPriceForUrl.setCurrency(productPriceForUrlDto.getCurrency());
             updatedProductPriceForUrl.setPrice(productPriceForUrlDto.getPrice());
             productPriceForUrlRepository.save(updatedProductPriceForUrl);
             return "PPFU UPDATE SUCCESSFUL";
@@ -54,4 +55,3 @@ public class ProductPriceForUrlBll {
         return "PPFU DELETE FAILED: " + reason + " with this ID doesn't exist";
     }
 }
-// TODO merge with prev commit when finished

@@ -51,12 +51,8 @@ public class ProductUrlBll {
         productPriceForUrlDto.setProductUrlId(productUrl.getId());
         if (productPriceForUrlBll.addProductPriceForUrl(productPriceForUrlDto).contains("SUCCESS")) {
             productUrl.setProductPriceForUrl(productPriceForUrlConverter.dtoToEntity(productPriceForUrlDto));
-            productUrlRepository.save(productUrl);
 
-            if (productBll.addUrlToProduct(productUrlConverter.dtoToEntity(productUrlDto)).contains("SUCCESS"))
-                return "PRODUCT URL ADD SUCCESS";
-            else
-                return "PRODUCT URL ADD FAILED: Wasn't able to add URL to Product's list";
+            return "PRODUCT URL ADD SUCCESS";
         } else
             return "PRODUCT URL ADD WARNING: Wasn't able to add PPFU for this URL";
     }
@@ -66,8 +62,10 @@ public class ProductUrlBll {
         String reason = "ProductUrl";
         if (productUrlRepository.findById(productUrlDto.getId()).isPresent()) {
             updatedProductUrl = productUrlRepository.findById(productUrlDto.getId()).get();
-            updatedProductUrl.setDomain(productUrlDto.getDomain());
-            updatedProductUrl.setUrl(productUrlDto.getUrl());
+            if (productUrlDto.getDomain() != null)
+                updatedProductUrl.setDomain(productUrlDto.getDomain());
+            if (productUrlDto.getUrl() != null)
+                updatedProductUrl.setUrl(productUrlDto.getUrl());
             productUrlRepository.save(updatedProductUrl);
             return "PRODUCT URL UPDATE SUCCESSFUL";
         }
@@ -81,5 +79,5 @@ public class ProductUrlBll {
             return "PRODUCT URL DELETE SUCCESSFUL";
         }
         return "PRODUCT URL DELETE FAILED: " + reason + " with this ID doesn't exist";
-     }
+    }
 }

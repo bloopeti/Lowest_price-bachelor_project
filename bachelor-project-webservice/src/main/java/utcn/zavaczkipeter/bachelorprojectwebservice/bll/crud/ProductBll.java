@@ -46,10 +46,10 @@ public class ProductBll {
 
         ProductDetails productDetails = new ProductDetails();
         productDetails.setProduct(product);
-        productDetailsBll.addProductDetails(productDetailsConverter.entityToDto(productDetails));
-        product.setProductDetails(productDetails);
-        productRepository.save(product);
-        return "PRODUCT ADD SUCCESSFUL";
+        if (productDetailsBll.addProductDetails(productDetailsConverter.entityToDto(productDetails)).contains("SUCCESS"))
+            return "PRODUCT ADD SUCCESSFUL";
+        else
+            return "PRODUCT ADD PARTIALLY FAILED: Could not add Product Details";
     }
 
     public String updateProduct(ProductDto productDto) {
@@ -57,7 +57,8 @@ public class ProductBll {
         String reason = "Product";
         if (productRepository.findById(productDto.getId()).isPresent()) {
             updatedProduct = productRepository.findById(productDto.getId()).get();
-            updatedProduct.setName(productDto.getName());
+            if (productDto.getName() != null)
+                updatedProduct.setName(productDto.getName());
             productRepository.save(updatedProduct);
             return "PRODUCT UPDATE SUCCESSFUL";
         }

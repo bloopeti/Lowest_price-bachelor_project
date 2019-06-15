@@ -27,9 +27,10 @@ public class ProductUrlConverter {
         entity.setUrl(dto.getUrl());
         entity.setDomain(dto.getDomain());
         Product product = new Product();
-        product.setId(dto.getId());
+        product.setId(dto.getProductId());
         entity.setProduct(product);
-        entity.setProductPriceForUrl(productPriceForUrlConverter.dtoToEntity(dto.getProductPriceForUrl()));
+        if(dto.getProductPriceForUrl() != null)
+            entity.setProductPriceForUrl(productPriceForUrlConverter.dtoToEntity(dto.getProductPriceForUrl()));
         return entity;
     }
 

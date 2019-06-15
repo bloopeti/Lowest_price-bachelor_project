@@ -1,0 +1,769 @@
+{
+	"info": {
+		"_postman_id": "46de490a-e9a1-4724-9959-87380a4bc7c2",
+		"name": "Bachelor project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "product",
+			"item": [
+				{
+					"name": "Get all products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/product/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"product",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get product by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/product/get/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"product",
+								"get",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Huawei P30 Pro\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/product/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"product",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":2,\n\t\"name\":\"Samsung Galaxy S8\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/product/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"product",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":3\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/product/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"product",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "productDetails",
+			"item": [
+				{
+					"name": "Get all productDetails",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/productDetails/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"productDetails",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get productDetails by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/productDetails/get/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"productDetails",
+								"get",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add productDetails",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"productId\":1,\n\t\"brand\":\"Appl2\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/productDetails/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"productDetails",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update productDetails",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":2,\n\t\"brand\":\"Samsung\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/productDetails/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"productDetails",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete productDetails",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/productDetails/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"productDetails",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "productUrl",
+			"item": [
+				{
+					"name": "Get all productUrl",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/productUrl/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"productUrl",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get productUrl by domain",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/productUrl/get/emag",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"productUrl",
+								"get",
+								"emag"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add productUrl",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"url\":\"https://www.pcgarage.ro/smartphone/apple/iphone-x-hexa-core-64gb-3gb-ram-single-sim-4g-tri-camera-space-grey/\",\n\t\"domain\":\"pcgarage\",\n\t\"productId\":1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/productUrl/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"productUrl",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update productUrl",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":11,\n\t\"domain\":\"testyfy\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/productUrl/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"productUrl",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete productUrl",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":11\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/productUrl/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"productUrl",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "productPriceForUrl",
+			"item": [
+				{
+					"name": "Get all productPriceForUrl",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/productPriceForUrl/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"productPriceForUrl",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get productPriceForUrl by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/productPriceForUrl/get/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"productPriceForUrl",
+								"get",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add productPriceForUrl",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\": 69,\n    \"currency\": \"EUR\",\n    \"productUrlId\": 11\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/productPriceForUrl/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"productPriceForUrl",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update productPriceForUrl",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":10,\n    \"currency\": \"RON\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/productPriceForUrl/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"productPriceForUrl",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete productPriceForUrl",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":9\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/productPriceForUrl/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"productPriceForUrl",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Get all user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/user/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"user",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/user/get/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"user",
+								"get",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"emailAddress\": \"dum1\",\n    \"password\": \"dum1\",\n    \"isAdmin\": 0\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/user/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"user",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 2,\n    \"emailAddress\": \"test\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/user/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":2\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/user/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"user",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

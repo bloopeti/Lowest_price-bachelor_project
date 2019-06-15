@@ -53,10 +53,12 @@ public class ProductDetailsBll {
         String reason = "ProductDetails";
         if (productDetailsRepository.findById(productDetailsDto.getId()).isPresent()) {
             updatedProductDetails = productDetailsRepository.findById(productDetailsDto.getId()).get();
-            updatedProductDetails.setBrand(productDetailsDto.getBrand());
+            if (productDetailsDto.getBrand() != null)
+                updatedProductDetails.setBrand(productDetailsDto.getBrand());
+            productDetailsRepository.save(updatedProductDetails);
             return "PRODUCT DETAILS UPDATE SUCCESSFUL";
         }
-            return "PRODUCT DETAILS UPDATE FAILED: " + reason + " with this ID doesn't exist";
+        return "PRODUCT DETAILS UPDATE FAILED: " + reason + " with this ID doesn't exist";
     }
 
     public String deleteProductDetails(int id) {
@@ -73,8 +75,8 @@ public class ProductDetailsBll {
         if (productDetails == null)
             return "PRODUCT DETAILS FILL FAILED: ProductDetails with this ID doesn't exist";
         int filledFields = 0;
-        if(productDetails.getBrand() == null)
-            if(productDetailsDto.getBrand() != null) {
+        if (productDetails.getBrand() == null)
+            if (productDetailsDto.getBrand() != null) {
                 productDetails.setBrand(productDetailsDto.getBrand());
                 filledFields++;
             }

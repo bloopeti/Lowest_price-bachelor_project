@@ -48,8 +48,10 @@ public class UserBll {
         String reason = "User";
         if (userRepository.findById(userDto.getId()).isPresent()) {
             updatedUser = userRepository.findById(userDto.getId()).get();
-            updatedUser.setEmailAddress(userDto.getEmailAddress());
-            updatedUser.setPassword(userDto.getPassword());
+            if (userDto.getEmailAddress() != null)
+                updatedUser.setEmailAddress(userDto.getEmailAddress());
+            if (userDto.getPassword() != null)
+                updatedUser.setPassword(userDto.getPassword());
             updatedUser.setIsAdmin(userDto.getIsAdmin());
             userRepository.save(updatedUser);
             return "USER UPDATE SUCCESSFUL";
