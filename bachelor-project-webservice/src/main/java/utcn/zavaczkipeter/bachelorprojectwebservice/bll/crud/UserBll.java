@@ -88,11 +88,15 @@ public class UserBll {
             userToRegister = new UserDto();
             userToRegister.setIsAdmin(0);
             userToRegister.setEmailAddress(userDto.getEmailAddress());
-            userToRegister.setPassNoHash(userDto.getPassNoHash());
-            userToRegister.setPassword(DigestUtils.sha512Hex(userDto.getPassNoHash()));
-            userToRegister.setTrackedProducts(new ArrayList<ProductDto>());
-            addUser(userDto);
-            return "USER REGISTER SUCCESSFUL";
+            if (userDto.getPassNoHash().equals(userDto.getPassNoHashRepeat())) {
+                userToRegister.setPassNoHash(userDto.getPassNoHash());
+                userToRegister.setPassword(DigestUtils.sha512Hex(userDto.getPassNoHash()));
+                userToRegister.setTrackedProducts(new ArrayList<ProductDto>());
+                addUser(userToRegister);
+                return "USER REGISTER SUCCESSFUL";
+            }
+            else
+                return "USER REGISTER FAILED: Passwords don't match";
         }
         return "USER REGISTER FAILED: An account already exists with this email address!";
     }

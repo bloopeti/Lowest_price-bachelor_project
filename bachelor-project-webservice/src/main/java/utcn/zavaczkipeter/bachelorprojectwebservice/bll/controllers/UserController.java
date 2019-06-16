@@ -39,4 +39,14 @@ public class UserController {
     public String deleteUser(@RequestBody IdWrapper idWrapper) {
         return userBll.deleteUser(idWrapper.getId());
     }
+
+    @PostMapping(value = "/login")
+    public UserDto login(@RequestBody UserDto user) {
+        return userBll.login(user);
+    }
+
+    @PostMapping(value = "/register")
+    public String register(@RequestBody UserDto user) {
+        return userBll.register(user);
+    }
 }

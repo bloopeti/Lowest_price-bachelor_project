@@ -15,6 +15,7 @@ public class User {
     private String password;
     @Column
     private String passNoHash;
+    private String passNoHashRepeat;
     @Column
     private int isAdmin;
     @ManyToMany
@@ -51,6 +52,14 @@ public class User {
 
     public void setPassNoHash(String passNoHash) {
         this.passNoHash = passNoHash;
+    }
+
+    public String getPassNoHashRepeat() {
+        return passNoHashRepeat;
+    }
+
+    public void setPassNoHashRepeat(String passNoHashRepeat) {
+        this.passNoHashRepeat = passNoHashRepeat;
     }
 
     public int getIsAdmin() {

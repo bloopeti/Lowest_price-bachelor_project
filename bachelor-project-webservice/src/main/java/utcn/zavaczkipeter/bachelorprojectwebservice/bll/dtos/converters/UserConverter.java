@@ -29,6 +29,7 @@ public class UserConverter {
         entity.setEmailAddress(dto.getEmailAddress());
         entity.setPassword(dto.getPassword());
         entity.setPassNoHash(dto.getPassNoHash());
+        entity.setPassNoHashRepeat(dto.getPassNoHashRepeat());
         entity.setIsAdmin(dto.getIsAdmin());
         entity.setTrackedProducts(new ArrayList<Product>());
         List<ProductDto> productDtoList = dto.getTrackedProducts();
@@ -53,6 +54,7 @@ public class UserConverter {
         dto.setEmailAddress(entity.getEmailAddress());
         dto.setPassword(entity.getPassword());
         dto.setPassNoHash(entity.getPassNoHash());
+        dto.setPassNoHashRepeat(entity.getPassNoHashRepeat());
         dto.setIsAdmin(entity.getIsAdmin());
         dto.setTrackedProducts(new ArrayList<ProductDto>());
         List<Product> productList = entity.getTrackedProducts();

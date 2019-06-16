@@ -681,7 +681,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"emailAddress\": \"dum1\",\n    \"password\": \"dum1\",\n    \"isAdmin\": 0\n}"
+							"raw": "{\n    \"emailAddress\": \"testhash\",\n    \"passNoHash\": \"testhash\",\n    \"isAdmin\": 0\n}"
 						},
 						"url": {
 							"raw": "http://localhost:9906/app/user/add",
@@ -713,7 +713,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 2,\n    \"emailAddress\": \"test\"\n}"
+							"raw": "{\n    \"id\": 1,\n    \"emailAddress\": \"dum\",\n    \"passNoHash\":\"dum\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:9906/app/user/update",
@@ -758,6 +758,70 @@
 								"app",
 								"user",
 								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"emailAddress\": \"dum\",\n    \"passNoHash\": \"dum\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"emailAddress\": \"dum\",\n    \"passNoHash\": \"dum\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/user/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"user",
+								"register"
 							]
 						}
 					},
