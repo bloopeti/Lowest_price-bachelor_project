@@ -14,6 +14,8 @@ public class User {
     @Column
     private String password;
     @Column
+    private String passNoHash;
+    @Column
     private int isAdmin;
     @ManyToMany
     @JoinTable
@@ -41,6 +43,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPassNoHash() {
+        return passNoHash;
+    }
+
+    public void setPassNoHash(String passNoHash) {
+        this.passNoHash = passNoHash;
     }
 
     public int getIsAdmin() {

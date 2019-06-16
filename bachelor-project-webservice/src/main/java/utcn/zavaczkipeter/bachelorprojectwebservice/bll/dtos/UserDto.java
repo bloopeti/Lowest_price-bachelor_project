@@ -6,6 +6,7 @@ public class UserDto {
     private int id;
     private String emailAddress;
     private String password;
+    private String passNoHash;
     private int isAdmin;
     private List<ProductDto> trackedProducts;
 
@@ -31,6 +32,14 @@ public class UserDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPassNoHash() {
+        return passNoHash;
+    }
+
+    public void setPassNoHash(String passNoHash) {
+        this.passNoHash = passNoHash;
     }
 
     public int getIsAdmin() {

@@ -1,5 +1,6 @@
 package utcn.zavaczkipeter.bachelorprojectwebservice.bll.crud;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos.ProductDto;
@@ -50,8 +51,10 @@ public class UserBll {
             updatedUser = userRepository.findById(userDto.getId()).get();
             if (userDto.getEmailAddress() != null)
                 updatedUser.setEmailAddress(userDto.getEmailAddress());
-            if (userDto.getPassword() != null)
-                updatedUser.setPassword(userDto.getPassword());
+            if (userDto.getPassNoHash() != null) {
+                updatedUser.setPassNoHash(userDto.getPassNoHash());
+                updatedUser.setPassword(DigestUtils.sha512Hex(userDto.getPassNoHash()));
+            }
             updatedUser.setIsAdmin(userDto.getIsAdmin());
             userRepository.save(updatedUser);
             return "USER UPDATE SUCCESSFUL";
@@ -71,7 +74,7 @@ public class UserBll {
     public UserDto login(UserDto userDto) {
         UserDto dbUser = getUserByEmailAddress(userDto);
         if (!(dbUser == null)) {
-            if (userDto.getPassword().equals(dbUser.getPassword()))
+            if (DigestUtils.sha512Hex(userDto.getPassNoHash()).equals(dbUser.getPassword()))
                 return dbUser;
         }
         dbUser = new UserDto();
@@ -85,7 +88,8 @@ public class UserBll {
             userToRegister = new UserDto();
             userToRegister.setIsAdmin(0);
             userToRegister.setEmailAddress(userDto.getEmailAddress());
-            userToRegister.setPassword(userDto.getPassword());
+            userToRegister.setPassNoHash(userDto.getPassNoHash());
+            userToRegister.setPassword(DigestUtils.sha512Hex(userDto.getPassNoHash()));
             userToRegister.setTrackedProducts(new ArrayList<ProductDto>());
             addUser(userDto);
             return "USER REGISTER SUCCESSFUL";

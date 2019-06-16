@@ -22,11 +22,13 @@ public class UserConverter {
         return thisInstance;
     }
 
+    @SuppressWarnings("Duplicates")
     public User dtoToEntity(UserDto dto) {
         User entity = new User();
         entity.setId(dto.getId());
         entity.setEmailAddress(dto.getEmailAddress());
         entity.setPassword(dto.getPassword());
+        entity.setPassNoHash(dto.getPassNoHash());
         entity.setIsAdmin(dto.getIsAdmin());
         entity.setTrackedProducts(new ArrayList<Product>());
         List<ProductDto> productDtoList = dto.getTrackedProducts();
@@ -44,11 +46,13 @@ public class UserConverter {
         return entityList;
     }
 
+    @SuppressWarnings("Duplicates")
     public UserDto entityToDto(User entity) {
         UserDto dto = new UserDto();
         dto.setId(entity.getId());
         dto.setEmailAddress(entity.getEmailAddress());
         dto.setPassword(entity.getPassword());
+        dto.setPassNoHash(entity.getPassNoHash());
         dto.setIsAdmin(entity.getIsAdmin());
         dto.setTrackedProducts(new ArrayList<ProductDto>());
         List<Product> productList = entity.getTrackedProducts();
