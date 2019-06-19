@@ -21,10 +21,40 @@ def process_float_or_int(value):
         return value
 
 
-class ProductItem(scrapy.Item):
+class FillerItem(scrapy.Item):
     crawled_name = scrapy.Field()
     url = scrapy.Field()
     domain = scrapy.Field()
     price = scrapy.Field()  # input_processor=MapCompose(lambda x: process_float_or_int(x)))
     currency = scrapy.Field()
     brand = scrapy.Field()
+    productId = scrapy.Field()
+    domain = scrapy.Field()
+
+
+class ProductDetailsItem(scrapy.Item):
+    id = scrapy.Field()
+    productId = scrapy.Field()
+    brand = scrapy.Field()
+
+
+class ProductPriceForUrlItem(scrapy.Item):
+    id = scrapy.Field()
+    price = scrapy.Field()
+    currency = scrapy.Field()
+    productUrlId = scrapy.Field()
+
+
+class ProductUrlItem(scrapy.Item):
+    id = scrapy.Field()
+    url = scrapy.Field()
+    domain = scrapy.Field()
+    productId = scrapy.Field()
+    productPriceForUrl = scrapy.Field()
+
+
+class ProductItem(scrapy.Item):
+    id = scrapy.Field()
+    name = scrapy.Field()
+    productDetails = scrapy.Field()
+    urls = scrapy.Field()

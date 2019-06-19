@@ -1,10 +1,9 @@
-from scrapy.crawler import CrawlerProcess
-from items import ProductItem
-from scrapy.utils.project import get_project_settings
-
-import requests
 import json
 import sys
+
+import requests
+from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
 
 if len(sys.argv) == 2:
     domain_name = sys.argv[1]
@@ -18,17 +17,12 @@ if len(sys.argv) == 2:
 
     process = CrawlerProcess(scrapy_settings)
 
-    result_product = ProductItem()
-
     if response.ok:
         for productUrl in data:
             process.crawl(domain_name,
                           start_url=productUrl['url'],
-                          result=result_product)
+                          product_id=productUrl['productId'])
             process.start()
-
-            print('---------------\n')
-            print(result_product)  # alternatively, send a request to the webservice in an item pipeline to add to db
     else:
         print("Couldn't access the webservice! Status code: %d" % response.status_code)
 else:
