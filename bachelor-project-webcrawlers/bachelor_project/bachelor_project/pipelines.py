@@ -9,3 +9,11 @@
 class BachelorProjectPipeline(object):
     def process_item(self, item, spider):
         return item
+
+
+class RestPipeline(object):
+    def process_item(self, item, spider):
+        print('\n custom pipe \n')
+        print(item)
+        print('\n custom pipe \n')
+        return item
