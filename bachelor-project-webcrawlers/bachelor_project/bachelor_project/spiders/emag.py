@@ -18,7 +18,7 @@ class EmagSpider(scrapy.Spider):
         crawled_name = response.css('h1.page-title::text').get()
         brand = response.css('h1.page-title::text').re('Telefon mobil (\w*)')[0]
 
-        if currency.lower() == 'lei':
+        if currency.upper() in ('LEI', 'RON'):
             currency = 'RON'
 
         product = FillerItem()

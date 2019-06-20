@@ -17,6 +17,9 @@ class PcgarageSpider(scrapy.Spider):
         crawled_name = response.css('h1.p-name::text').get()
         brand = response.css('h1.p-name::text').re('^Smartphone (\w*)')[0]
 
+        if currency.upper() in ('LEI', 'RON'):
+            currency = 'RON'
+
         product = FillerItem()
         product['productId'] = self.product_id
         product['domain'] = self.name

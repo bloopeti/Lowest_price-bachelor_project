@@ -9,7 +9,7 @@ def load_product(product_id, domain):
     response = requests.get(url=url)
     if response.ok:
         product_json = json.loads(response.text)
-        print(product_json)
+        # print(product_json)
 
         # product_details_item = ProductDetailsItem()
         # product_details_item['id'] = product_json['productDetails']['id']

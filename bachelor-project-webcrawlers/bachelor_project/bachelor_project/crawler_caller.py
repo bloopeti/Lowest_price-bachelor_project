@@ -24,7 +24,7 @@ if len(sys.argv) == 2:
                           product_id=productUrl['productId'])
             process.start()
     else:
-        print("Couldn't access the webservice! Status code: %d" % response.status_code)
+        print("\tCouldn't access the webservice! Status code: %d" % response.status_code)
 else:
-    print("Incorrect number of arguments!\nTwo arguments are required: this file's path and the domain you wish to "
+    print("\tIncorrect number of arguments!\nTwo arguments are required: this file's path and the domain you wish to "
           "crawl and update")

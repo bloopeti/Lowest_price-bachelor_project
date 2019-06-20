@@ -14,18 +14,9 @@ class BachelorProjectItem(scrapy.Item):
     pass
 
 
-def process_float_or_int(value):
-    try:
-        return eval(value)
-    except:
-        return value
-
-
 class FillerItem(scrapy.Item):
     crawled_name = scrapy.Field()
-    url = scrapy.Field()
-    domain = scrapy.Field()
-    price = scrapy.Field()  # input_processor=MapCompose(lambda x: process_float_or_int(x)))
+    price = scrapy.Field()
     currency = scrapy.Field()
     brand = scrapy.Field()
     productId = scrapy.Field()
