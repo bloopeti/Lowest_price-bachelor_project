@@ -73,7 +73,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\":\"Huawei P30 Pro\"\n}"
+							"raw": "{\n\t\"name\":\"Apple iPhone X\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:9906/app/product/add",
@@ -377,7 +377,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"url\":\"https://www.pcgarage.ro/smartphone/apple/iphone-x-hexa-core-64gb-3gb-ram-single-sim-4g-tri-camera-space-grey/\",\n\t\"domain\":\"pcgarage\",\n\t\"productId\":1\n}"
+							"raw": "{\n\t\"url\":\"https://www.emag.ro/telefon-mobil-apple-iphone-x-64gb-4g-silver-mqad2rm-a/pd/DP094NBBM/\",\n\t\"domain\":\"emag\",\n\t\"productId\":1\n}"
 						},
 						"url": {
 							"raw": "http://localhost:9906/app/productUrl/add",
@@ -745,7 +745,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\":2\n}"
+							"raw": "{\n\t\"id\":4\n}"
 						},
 						"url": {
 							"raw": "http://localhost:9906/app/user/delete",
@@ -809,7 +809,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"emailAddress\": \"dum\",\n    \"passNoHash\": \"dum\"\n}"
+							"raw": "{\n    \"emailAddress\": \"dumtes3t\",\n    \"passNoHash\": \"dumtest\",\n    \"passNoHashRepeat\": \"dumtest1\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:9906/app/user/register",
