@@ -777,7 +777,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"emailAddress\": \"dum\",\n    \"passNoHash\": \"dum\"\n}"
+							"raw": "{\n    \"emailAddress\": \"dumtest\",\n    \"passNoHash\": \"dumtest\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:9906/app/user/login",
@@ -809,7 +809,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"emailAddress\": \"dumtes3t\",\n    \"passNoHash\": \"dumtest\",\n    \"passNoHashRepeat\": \"dumtest1\"\n}"
+							"raw": "{\n    \"emailAddress\": \"dumtest\",\n    \"passNoHash\": \"dumtest\",\n    \"passNoHashRepeat\": \"dumtest\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:9906/app/user/register",

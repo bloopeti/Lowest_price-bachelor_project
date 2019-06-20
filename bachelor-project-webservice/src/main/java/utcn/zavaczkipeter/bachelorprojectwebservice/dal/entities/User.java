@@ -15,6 +15,7 @@ public class User {
     private String password;
     @Column
     private String passNoHash;
+    @Transient
     private String passNoHashRepeat;
     @Column
     private int isAdmin;

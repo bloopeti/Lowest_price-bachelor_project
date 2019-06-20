@@ -74,8 +74,11 @@ public class UserBll {
     public UserDto login(UserDto userDto) {
         UserDto dbUser = getUserByEmailAddress(userDto);
         if (!(dbUser == null)) {
-            if (DigestUtils.sha512Hex(userDto.getPassNoHash()).equals(dbUser.getPassword()))
+            if (DigestUtils.sha512Hex(userDto.getPassNoHash()).equals(dbUser.getPassword())) {
+                dbUser.setPassword(null);
+                dbUser.setPassNoHash(null);
                 return dbUser;
+            }
         }
         dbUser = new UserDto();
         dbUser.setIsAdmin(-10);

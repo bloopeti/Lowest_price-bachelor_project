@@ -1,0 +1,29 @@
+<div style="text-align: center">
+  <div *ngIf="!(isUserLogged === 'true')">
+    <p>
+      <label>Email
+        <input [(ngModel)]="userToRegister.emailAddress" type="text"/>
+      </label>
+    </p>
+    <p>
+      <label>Password
+        <input [(ngModel)]="userToRegister.passNoHash" type="password"/>
+      </label>
+    </p>
+    <p>
+      <label>Re-enter password
+        <input [(ngModel)]="userToRegister.passNoHashRepeat" type="password"/>
+      </label>
+    </p>
+    <button
+      (click)="attemptRegister(); userToRegister.passNoHash=''; userToRegister.passNoHashRepeat=''">
+      Register
+    </button>
+    <div *ngIf="!(message === '')">
+      <div class="alert alert-info" role="alert">{{message}}</div>
+    </div>
+  </div>
+  <div *ngIf="isUserLogged === 'true'">
+    <p>You are logged in!</p>
+  </div>
+</div>

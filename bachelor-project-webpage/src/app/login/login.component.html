@@ -1,0 +1,29 @@
+<div style="text-align: center">
+  <div *ngIf="!(isUserLogged === 'true')">
+    <p>
+      <label>Email
+        <input [(ngModel)]="userToLogin.emailAddress" type="text"/>
+      </label>
+    </p>
+    <p>
+      <label>Password
+        <input [(ngModel)]="userToLogin.passNoHash" type="password"/>
+      </label>
+    </p>
+    <button (click)="attemptLogin(); userToLogin.passNoHash=''">Login</button>
+    <p>You don't have an account? Register <a routerLink="/register" mat-flat-button>here</a></p>
+  </div>
+  <div *ngIf="isUserLogged === 'true'">
+    <p>You are logged in!</p>
+    <button (click)="logout()">Logout</button>
+  </div>
+  <div *ngIf="!(message === '') && !(isUserLogged === 'true')">
+    <div class="alert alert-info" role="alert">{{message}}</div>
+  </div>
+</div>
+
+logged {{isUserLogged}}
+<br/>
+admin {{isUserAdmin}}
+<br/>
+data {{loggedInUser}}
