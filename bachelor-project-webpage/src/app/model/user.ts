@@ -7,5 +7,5 @@ export class User {
   passNoHash: string;
   passNoHashRepeat: string;
   isAdmin: number;
-  trackedProducts: Product[]; // TODO
+  favouriteProducts: Product[];
 }

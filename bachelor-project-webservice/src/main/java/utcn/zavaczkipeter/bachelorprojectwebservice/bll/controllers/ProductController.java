@@ -39,4 +39,9 @@ public class ProductController {
     public String deleteProduct(@RequestBody IdWrapper idWrapper) {
         return productBll.deleteProduct(idWrapper.getId());
     }
+
+    @GetMapping(value = "/search/{query}")
+    public List<ProductDto> getProductsBySearchQuery(@PathVariable("query") String query) {
+        return productBll.getProductsBySearchQuery(query);
+    }
 }

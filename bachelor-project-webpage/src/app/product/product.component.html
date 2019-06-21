@@ -1,0 +1,56 @@
+<div class="container">
+  <h1>
+    <input [(ngModel)]="searchQuery" type="text" placeholder=" What product would you like to see today? "/>
+    <button (click)="search(searchQuery); searchQuery=''" mat-flat-button> Search </button>
+  </h1>
+
+  <h2> Products containing '{{searchQueryParam}}' </h2>
+  <div *ngIf="products.length == 0 && requestComplete == false">
+    <div class="alert alert-info" role="alert"> Loading... </div>
+  </div>
+  <div *ngIf="products.length == 0 && requestComplete == true">
+    <div class="alert alert-info" role="alert"> No product found! </div>
+  </div>
+
+  <div *ngIf="products.length > 0">
+    <table mat-table [dataSource]="products" class="mat-elevation-z8">
+
+      <!-- Id Column -->
+      <!--      <ng-container matColumnDef="id">-->
+      <!--        <th mat-header-cell *matHeaderCellDef> Id</th>-->
+      <!--        <td mat-cell *matCellDef="let product"> {{product.id}}</td>-->
+      <!--      </ng-container>-->
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td class="clickable" mat-cell *matCellDef="let product" (click)="viewDetails(product)"> {{product.name}} </td>
+      </ng-container>
+
+      <!-- Details Column -->
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef> Details </th>
+        <td class="clickable" mat-cell *matCellDef="let product">
+          <button mat-raised-button (click)="viewDetails(product)"> Details </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div class="container" *ngIf="productIsSelected">
+      <div>
+        <h2> Product Details </h2>
+        <p>
+          <label> Name: </label><span>{{productSelected.name}}</span>
+        </p>
+        <p>
+          <label> Brand: </label><span>{{productSelected.productDetails.brand}}</span>
+        </p>
+      </div>
+      <button *ngIf="isUserLogged === 'true'" (click)="addToFavourites(productSelected)" mat-flat-button> Favourite </button>
+      <span *ngIf="!(message.length == 0)"> Message: {{message}}</span>
+    </div>
+  </div>
+</div>

@@ -49,4 +49,15 @@ public class UserController {
     public String register(@RequestBody UserDto user) {
         return userBll.register(user);
     }
+
+
+    @PostMapping(value = "/addToFaves")
+    private String addToFaves(@RequestBody UserDto user) {
+        return userBll.addProductToFavourites(user);
+    }
+
+    @PostMapping(value = "/removeFromFaves")
+    private String removeFromFaves(@RequestBody UserDto user) {
+        return userBll.removeProductFromFavourites(user);
+    }
 }

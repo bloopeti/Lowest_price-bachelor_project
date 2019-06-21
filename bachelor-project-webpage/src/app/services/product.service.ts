@@ -40,4 +40,8 @@ export class ProductService {
   deleteProduct(id: IdWrapper): Observable<string> {
     return this.http.post(this.productUrl + '/delete', id, {headers, responseType: 'text'});
   }
+
+  getProductsBySearchQuery(searchQuery: string): Observable<Product[]> {
+    return this.http.get<Product[]>(this.productUrl + '/search/' + searchQuery);
+  }
 }

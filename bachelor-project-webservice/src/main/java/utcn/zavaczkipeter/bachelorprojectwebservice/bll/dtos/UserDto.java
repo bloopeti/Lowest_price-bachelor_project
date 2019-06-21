@@ -9,7 +9,7 @@ public class UserDto {
     private String passNoHash;
     private String passNoHashRepeat;
     private int isAdmin;
-    private List<ProductDto> trackedProducts;
+    private List<ProductDto> favouriteProducts;
 
     public int getId() {
         return id;
@@ -59,11 +59,11 @@ public class UserDto {
         this.isAdmin = isAdmin;
     }
 
-    public List<ProductDto> getTrackedProducts() {
-        return trackedProducts;
+    public List<ProductDto> getFavouriteProducts() {
+        return favouriteProducts;
     }
 
-    public void setTrackedProducts(List<ProductDto> trackedProducts) {
-        this.trackedProducts = trackedProducts;
+    public void setFavouriteProducts(List<ProductDto> favouriteProducts) {
+        this.favouriteProducts = favouriteProducts;
     }
 }

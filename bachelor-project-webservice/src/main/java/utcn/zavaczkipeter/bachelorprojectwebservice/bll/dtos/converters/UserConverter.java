@@ -31,11 +31,11 @@ public class UserConverter {
         entity.setPassNoHash(dto.getPassNoHash());
         entity.setPassNoHashRepeat(dto.getPassNoHashRepeat());
         entity.setIsAdmin(dto.getIsAdmin());
-        entity.setTrackedProducts(new ArrayList<Product>());
-        List<ProductDto> productDtoList = dto.getTrackedProducts();
+        entity.setFavouriteProducts(new ArrayList<Product>());
+        List<ProductDto> productDtoList = dto.getFavouriteProducts();
         if (productDtoList != null) {
             for (ProductDto productDTO : productDtoList)
-                entity.getTrackedProducts().add(productConverter.dtoToEntity(productDTO));
+                entity.getFavouriteProducts().add(productConverter.dtoToEntity(productDTO));
         }
         return entity;
     }
@@ -56,11 +56,11 @@ public class UserConverter {
         dto.setPassNoHash(entity.getPassNoHash());
         dto.setPassNoHashRepeat(entity.getPassNoHashRepeat());
         dto.setIsAdmin(entity.getIsAdmin());
-        dto.setTrackedProducts(new ArrayList<ProductDto>());
-        List<Product> productList = entity.getTrackedProducts();
+        dto.setFavouriteProducts(new ArrayList<ProductDto>());
+        List<Product> productList = entity.getFavouriteProducts();
         if (productList != null) {
             for (Product product : productList)
-                dto.getTrackedProducts().add(productConverter.entityToDto(product));
+                dto.getFavouriteProducts().add(productConverter.entityToDto(product));
         }
         return dto;
     }

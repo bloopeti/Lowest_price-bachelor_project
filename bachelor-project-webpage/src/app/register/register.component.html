@@ -15,8 +15,7 @@
         <input [(ngModel)]="userToRegister.passNoHashRepeat" type="password"/>
       </label>
     </p>
-    <button
-      (click)="attemptRegister(); userToRegister.passNoHash=''; userToRegister.passNoHashRepeat=''">
+    <button (click)="attemptRegister(); userToRegister.passNoHash=''; userToRegister.passNoHashRepeat=''" mat-flat-button>
       Register
     </button>
     <div *ngIf="!(message === '')">
@@ -24,6 +23,6 @@
     </div>
   </div>
   <div *ngIf="isUserLogged === 'true'">
-    <p>You are logged in!</p>
+    <p> You are logged in !</p>
   </div>
 </div>

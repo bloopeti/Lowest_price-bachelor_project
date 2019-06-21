@@ -1,6 +1,9 @@
 <div>
-  <mat-toolbar color="primary">
-    <a routerLink="/home" mat-flat-button>Home</a>
-    <a routerLink="/login" mat-flat-button>Login</a>
+  <mat-toolbar>
+    <a routerLink="/home" mat-raised-button> Home </a>
+    <a *ngIf="isUserLogged === 'true'" routerLink="/favourites" mat-raised-button> My favourites </a>
+    <span class="fill-space"></span>
+    <a *ngIf="isUserLogged === 'false'" routerLink="/login" mat-raised-button> Login </a>
+    <a *ngIf="isUserLogged === 'true'" (click)="logout()" mat-raised-button> Logout </a>
   </mat-toolbar>
 </div>

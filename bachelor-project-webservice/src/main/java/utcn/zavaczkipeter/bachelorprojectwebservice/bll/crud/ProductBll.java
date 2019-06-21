@@ -13,6 +13,7 @@ import utcn.zavaczkipeter.bachelorprojectwebservice.dal.repositories.ProductRepo
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductBll {
@@ -82,5 +83,13 @@ public class ProductBll {
             return "PRODUCT DELETE SUCCESSFUL";
         }
         return "PRODUCT DELETE FAILED: " + reason + " with this ID doesn't exist";
+    }
+
+    public List<ProductDto> getProductsBySearchQuery(String searchQuery) {
+        Optional<List<Product>> db_result = productRepository.findByNameContains(searchQuery);
+        if(db_result.isPresent())
+            return productConverter.entityListToDtoList(db_result.get());
+        else
+            return new ArrayList<>();
     }
 }

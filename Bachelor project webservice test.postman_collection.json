@@ -154,6 +154,32 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get products by search query",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/product/search/apple",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"product",
+								"search",
+								"apple"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -822,6 +848,70 @@
 								"app",
 								"user",
 								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add product to favourites",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":2,\n\t\"favouriteProducts\":[{\"id\":1}]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/user/addToFaves",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"user",
+								"addToFaves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove product from favourites",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":2,\n\t\"favouriteProducts\":[{\"id\":1}]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/user/removeFromFaves",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"user",
+								"removeFromFaves"
 							]
 						}
 					},

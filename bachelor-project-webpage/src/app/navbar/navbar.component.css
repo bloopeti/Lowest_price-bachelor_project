@@ -1,0 +1,12 @@
+.mat-toolbar {
+  background-color: darkred;
+}
+
+.mat-raised-button {
+  background-color: black;
+  color: dimgray;
+}
+
+.fill-space {
+  flex: 1 1 auto;
+}
