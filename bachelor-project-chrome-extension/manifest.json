@@ -1,0 +1,31 @@
+{
+    "manifest_version": 2,
+    "name": "ZP Bachelor's Project Extension",
+    "version": "1.0",
+    "description": "Looks on accessed pages on supported domains, and in case it finds a lower price for the supported item, it prompts the user about it.",
+    "icons": {
+        "16": "images/icon_16.png",
+        "32": "images/icon_32.png",
+        "48": "images/icon_48.png",
+        "128": "images/icon_128.png"
+    },
+    "permissions": [
+        "tabs", "declarativeContent",
+        "http://localhost/*",
+        "https://www.emag.ro/*"
+      ],
+    "page_action": {
+        "default_icon": {
+            "16": "images/icon_16.png",
+            "32": "images/icon_32.png",
+            "48": "images/icon_48.png",
+            "128": "images/icon_128.png"
+        },
+        "default_popup": "popup.html",
+        "default_title": "ZP Bachelor's Project Extension"
+    },
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    }
+}
