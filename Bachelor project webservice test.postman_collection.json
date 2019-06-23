@@ -484,6 +484,56 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Find by url part",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "https://www.emag.ro/telefon-mobil-apple-iphone-x-64gb-4g-silver-mqad2rm-a/pd/DP094NBBM/"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/productUrl/find",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"productUrl",
+								"find"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get URL with cheapest price",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "www.emag.ro/telefon-mobil-apple-iphone-x-64gb-4g-silver-mqad2rm-a/pd/DP094NBBM/"
+						},
+						"url": {
+							"raw": "http://localhost:9906/app/productUrl/cheapest",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9906",
+							"path": [
+								"app",
+								"productUrl",
+								"cheapest"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

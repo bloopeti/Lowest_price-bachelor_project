@@ -14,4 +14,5 @@ import java.util.Optional;
 public interface ProductUrlRepository extends JpaRepository<ProductUrl, Integer> {
     Optional<List<ProductUrl>> findByProduct(Product product);
     Optional<List<ProductUrl>> findByDomain(String domain);
+    Optional<List<ProductUrl>> findByUrlContains(String urlPart);
 }
