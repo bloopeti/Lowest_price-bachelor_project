@@ -1,4 +1,4 @@
-let supportedDomains = ['www.emag.ro', 'www.pcgarage.ro', 'extensions'];
+let supportedDomains = ['www.emag.ro', 'www.pcgarage.ro'];
 
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     if (changeInfo.status === "complete") {
@@ -30,26 +30,14 @@ function checkCheaperPrice(url) {
             if (!(xhr.responseText === 'No similar url found!')) {
                 if (xhr.responseText.includes(url.hostname + url.pathname)) {
                     console.log("You're on the website with the cheapest price for this product!");
+                    chrome.storage.sync.set({ onCheapestSite: true });
                 } else {
                     console.log("This product can be found at a cheaper price at '" + xhr.responseText + "'!");
+                    chrome.storage.sync.set({ cheaperPriceUrl: xhr.responseText });
+                    chrome.storage.sync.set({ onCheapestSite: false });
                 }
             }
         }
     }
     xhr.send(url.pathname);
 }
-
-
-
-
-// chrome.runtime.onInstalled.addListener(function () {
-//     chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
-//         chrome.declarativeContent.onPageChanged.addRules([{
-//             conditions: [new chrome.declarativeContent.PageStateMatcher({
-//                 pageUrl: { hostContains: 'emag' },
-//             })
-//             ],
-//             actions: [new chrome.declarativeContent.ShowPageAction()]
-//         }], checkSupportedDomain);
-//     });
-// })

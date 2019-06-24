@@ -3,15 +3,18 @@
 
 <head>
     <title>ZP Bachelor's Project Extension</title>
+    <style>
+        h1 {font-size: 100%}
+    </style>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script src="popup.js"></script>
 </head>
 
 <body>
     <div>
-        <h1>You're on the website with the cheapest price for this product!</h1>
+        <h1 id="message">You're not on a supported website. How can you even see this</h1>
     </div>
-    <div hidden=true>
-        <h1>This product can be found at a cheaper price at 'some_url'!</h1>
-    </div>
+    <p><a id="fullwebsite" href="http://localhost:4200/home">Full website</a></p>
 </body>
 
 </html>

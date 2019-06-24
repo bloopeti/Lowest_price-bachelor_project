@@ -10,9 +10,8 @@
         "128": "images/icon_128.png"
     },
     "permissions": [
-        "tabs", "declarativeContent",
-        "http://localhost/*",
-        "https://www.emag.ro/*"
+        "tabs", "storage",
+        "http://localhost/*"
       ],
     "page_action": {
         "default_icon": {
