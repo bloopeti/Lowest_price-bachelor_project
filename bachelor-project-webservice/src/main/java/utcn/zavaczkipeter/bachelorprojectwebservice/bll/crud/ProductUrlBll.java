@@ -92,18 +92,22 @@ public class ProductUrlBll {
     }
 
     public String getUrlWithCheapestPrice(String urlPart) {
-        Optional<List<ProductUrl>> db_result = productUrlRepository.findByUrlContains(urlPart);
-        if (db_result.isPresent()) {
-            float smallestPrice = db_result.get().get(0).getProductPriceForUrl().getPrice();
-            ProductUrl smallestPriceUrl = db_result.get().get(0);
-            for(ProductUrl productUrl : db_result.get().get(0).getProduct().getUrls()) {
-                if (productUrl.getProductPriceForUrl().getPrice() < smallestPrice) {
-                    smallestPriceUrl = productUrl;
-                    smallestPrice = productUrl.getProductPriceForUrl().getPrice();
+        if (!(urlPart.equals("/")))
+        {
+            Optional<List<ProductUrl>> db_result = productUrlRepository.findByUrlContains(urlPart);
+            if (db_result.isPresent()) {
+                float smallestPrice = db_result.get().get(0).getProductPriceForUrl().getPrice();
+                ProductUrl smallestPriceUrl = db_result.get().get(0);
+                for (ProductUrl productUrl : db_result.get().get(0).getProduct().getUrls()) {
+                    if (productUrl.getProductPriceForUrl().getPrice() < smallestPrice) {
+                        smallestPriceUrl = productUrl;
+                        smallestPrice = productUrl.getProductPriceForUrl().getPrice();
+                    }
                 }
-            }
-            return smallestPriceUrl.getUrl();
+                return smallestPriceUrl.getUrl();
+            } else
+                return "No similar url found!";
         } else
-            return "No similar url found!";
+            return "You're not on a product page (no path)";
     }
 }
