@@ -1,6 +1,6 @@
 <div class="container">
   <div>
-    <h2> Product Details </h2>
+    <h2> <span> '{{product.name}}' </span> Product Details </h2>
     <p>
       <label> Name: </label><span> {{product.name}} </span>
     </p>
@@ -8,5 +8,30 @@
       <label> Brand: </label><span> {{product.productDetails.brand}} </span>
     </p>
   </div>
-  <button> Favourite </button>
+  <div *ngIf="product.urls.length > 0">
+    <table mat-table [dataSource]="product.urls" class="mat-elevation-z8">
+      <!-- Domain Column -->
+      <ng-container matColumnDef="domain">
+        <th mat-header-cell *matHeaderCellDef> Domain </th>
+        <td class="clickable" mat-cell *matCellDef="let url"> {{url.domain}} </td>
+      </ng-container>
+
+      <!-- URL Column -->
+      <ng-container matColumnDef="url">
+        <th mat-header-cell *matHeaderCellDef> URL </th>
+        <td mat-cell *matCellDef="let url"><a href="{{url.url}}" target="_blank"> {{url.url}} </a></td>
+      </ng-container>
+
+      <!-- Price Column -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Price </th>
+        <td mat-cell *matCellDef="let url"> {{url.productPriceForUrl.price}} {{url.productPriceForUrl.currency}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  <button *ngIf="isUserLogged === 'true'" (click)="addToFavourites(product)" mat-flat-button> Favourite </button>
+  <span *ngIf="!(message.length == 0)"> Message: {{message}}</span>
 </div>

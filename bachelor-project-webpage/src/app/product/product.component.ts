@@ -70,4 +70,8 @@ export class ProductComponent implements OnInit {
     this.router.navigate(['product/search', query]);
   }
 
+  openFullDetailPage(productId: number): void {
+    this.router.navigate(['productDetails', productId]);
+  }
+
 }

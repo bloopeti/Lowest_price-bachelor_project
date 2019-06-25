@@ -23,12 +23,19 @@ function updatePopupHtml() {
                     let message = document.getElementById('message');
 
                     message.innerHTML = 'You can find this product cheaper at <a href="' + url + '">' + url.hostname + '</a>!';
+                    // message.innerHTML = message.innerHTML + '\n<p id="our_version">See this product on <a href="http://localhost:4200/productDetails/' + productId + '>our website</a></p>'
                     message.setAttribute("id", "cheaper_url_openable");
                     message.addEventListener("click", function () {
-                        console.log('clicked cheaper_url');
+                        // console.log('clicked cheaper_url');
                         var linkHref = String(url);
                         openPage(linkHref);
                     });
+                    // var our_version = document.getElementById("our_version");
+                    // our_version.addEventListener("click", function () {
+                    //     // console.log('clicked our_version');
+                    //     var linkHref = String(our_version.getAttribute('href'));
+                    //     openPage(linkHref);
+                    // });
                 }
             }
         }

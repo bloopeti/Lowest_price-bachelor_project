@@ -7,6 +7,7 @@ import {LoginComponent} from '../login/login.component';
 import {RegisterComponent} from '../register/register.component';
 import {ProductComponent} from '../product/product.component';
 import {FavouritesComponent} from '../favourites/favourites.component';
+import {ProductDetailsComponent} from '../product-details/product-details.component';
 
 
 export const routes: Routes = [
@@ -17,6 +18,7 @@ export const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'product/search/:searchQuery', component: ProductComponent},
   {path: 'favourites', component: FavouritesComponent},
+  {path: 'productDetails/:id', component: ProductDetailsComponent},
   {path: '**', redirectTo: 'error'}
 ];
 
