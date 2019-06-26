@@ -1,24 +1,11 @@
-%Nume de capitole, sectiuni etc in romana 
-\def\appendixname{Anexa}
-\def\bibname{Bibliografie}
-\def\chaptername{Capitolul}
-\def\contentsname{Cuprins}
-\def\figurename{Figura}
-\def\listfigurename{Lista figurilor}
-\def\listtablename{Lista tabelelor}
-\def\partname{Partea}
-\def\refname{Referin'te}
-\def\tablename{Tabelul}
-
-
 
 %Diacritice
 %Copyright: A. Pusztai, Gh. Ardelean 
 
 \newcommand{\ia}[0]{\^{a}}
-\newcommand{\myqq@}{'}
+\newcommand{\myqq@}{''}
 \catcode`\'=13
-\newcommand{'}[1]
+\newcommand{''}[1]
  {\ifmmode {}^\prime \noexpand#1%
   \else\ifx#1a\u{a}%
        \else\ifx#1i\^{\i}%

@@ -1,5 +1,5 @@
 \appendix
-\chapter{Sec'tiuni relevante din cod}
+\chapter{Code Example}
 
 \begin{verbatim}
  /** Maps are easy to use in Scala. */
@@ -21,8 +21,3 @@ object Maps {
   }
 }
 \end{verbatim}
-
-\chapter{Alte informa'tii relevante (demonstra'tii etc.)}
-
-
-\chapter{Lucr'ari publicate (dac'a exist'a)

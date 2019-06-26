@@ -71,15 +71,6 @@
 @string{uai00 = "Proceedings of the 16th Annual Conference on Uncertainty in Artificial Intelligence"}
 
 %[REFERENCES] %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-@book{russell1995artificial,
-  title={Artificial intelligence: a modern approach},
-  author={Russell, Stuart Jonathan and Norvig, Peter and Canny, John F and Malik, Jitendra M and Edwards, Douglas D},
-  volume={2},
-  year={1995},
-  publisher={Prentice hall Englewood Cliffs}
-}
-
-
 
 @inproceedings{Zhou04,
     author = {Zhou,, Chen and Chia,, Liang-Tien and Lee,, Bu-Sung},
@@ -99,7 +90,6 @@
    edition = "Third",
    year = 1979
    }
-
 
 @inproceedings{Antoniou00,
   author    = {Grigoris Antoniou and
@@ -294,10 +284,3 @@ author 		= {Philippe Pasquier and Roberto Flores and Brahim Chaib-draa},
   isbn      = {1-59593-303-4},
   bibsource = {DBLP, http://dblp.uni-trier.de}
 }
-
-
-@Misc{webpage,
- title = {Ajax Tutorial},
- url = {http://www.tutorialspoint.com/ajax/.},
- lastchecked = {1 May 2014}
- }
