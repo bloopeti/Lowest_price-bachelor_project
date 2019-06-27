@@ -27,7 +27,7 @@ public class ProductUrlController {
         return productUrlBll.getAllProductUrlsByDomain(domain);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin//(origins = "http://localhost:4200")
     @PostMapping(value = "/add")
     public String addProductUrl(@RequestBody ProductUrlDto productUrl) {
         return productUrlBll.addProductUrl(productUrl);

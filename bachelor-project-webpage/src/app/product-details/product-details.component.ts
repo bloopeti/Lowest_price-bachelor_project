@@ -18,6 +18,7 @@ export class ProductDetailsComponent implements OnInit {
   productId: number;
   displayedColumns: string[] = ['domain', 'url', 'price'];
   isUserLogged: string;
+  isUserAdmin: string;
   message: string;
 
   constructor(private route: ActivatedRoute,
@@ -36,6 +37,7 @@ export class ProductDetailsComponent implements OnInit {
       });
     });
     this.isUserLogged = localStorage.getItem('isUserLoggedIn');
+    this.isUserAdmin = localStorage.getItem('isUserAdmin');
     this.message = '';
   }
 

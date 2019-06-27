@@ -1,0 +1,63 @@
+<div class="container">
+  <div *ngIf="(isUserAdmin === 'true')">
+    <h2>Product URL list for '{{product.name}}'</h2>
+    <div *ngIf="product.name.length == 0 && requestComplete == false">
+      <div class="alert alert-info" role="alert"> Loading...</div>
+    </div>
+    <div *ngIf="product.name.length == 0 && requestComplete == true">
+      <div class="alert alert-info" role="alert"> No product found!</div>
+    </div>
+
+
+    <div *ngIf="product.urls.length > 0">
+      <table mat-table [dataSource]="product.urls" class="mat-elevation-z8">
+
+        <!-- Domain Column -->
+        <ng-container matColumnDef="domain">
+          <th mat-header-cell *matHeaderCellDef> Domain</th>
+          <td class="clickable" mat-cell *matCellDef="let url" (click)="viewDetails(url)"> {{url.domain}} </td>
+        </ng-container>
+
+        <!-- URL Column -->
+        <ng-container matColumnDef="url">
+          <th mat-header-cell *matHeaderCellDef> URL</th>
+          <td class="clickable" mat-cell *matCellDef="let url" (click)="viewDetails(url)"> {{url.url}} </td>
+        </ng-container>
+
+        <!-- Details Column -->
+        <ng-container matColumnDef="details">
+          <th mat-header-cell *matHeaderCellDef> Details</th>
+          <td class="clickable" mat-cell *matCellDef="let product">
+            <button mat-raised-button (click)="viewDetails(product)"> Details</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <div class="container">
+        <div>
+          <h2> URL Details </h2>
+          <p>
+            <label> Domain: </label>
+            <input #urlDomain [(ngModel)]="urlSelected.domain" placeholder="url domain"/>
+          </p>
+          <p>
+            <label> URL: </label>
+            <input #urlUrl [(ngModel)]="urlSelected.url" placeholder="url URL"/>
+          </p>
+        </div>
+        <button (click)="add()" mat-flat-button>Add</button>
+        <button *ngIf="urlSelected.id" (click)="update()" mat-flat-button>Update</button>
+        <br/>
+        <button (click)="refreshProduct()" mat-flat-button> Refresh list</button>
+        <br/>
+        <span *ngIf="!(message.length == 0)"> Message: {{message}}</span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!(isUserAdmin === 'true')">
+    <h1>You're unauthorized to view this page! (not admin)</h1>
+  </div>
+</div>

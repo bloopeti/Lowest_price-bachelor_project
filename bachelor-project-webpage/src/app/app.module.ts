@@ -15,8 +15,10 @@ import {ErrorComponent} from './error/error.component';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {ProductComponent} from './product/product.component';
-import { ProductDetailsComponent } from './product-details/product-details.component';
-import { FavouritesComponent } from './favourites/favourites.component';
+import {ProductDetailsComponent} from './product-details/product-details.component';
+import {FavouritesComponent} from './favourites/favourites.component';
+import {AdminProductComponent} from './admin-product/admin-product.component';
+import {AdminProductUrlComponent} from './admin-product-url/admin-product-url.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { FavouritesComponent } from './favourites/favourites.component';
     RegisterComponent,
     ProductComponent,
     ProductDetailsComponent,
-    FavouritesComponent
+    FavouritesComponent,
+    AdminProductComponent,
+    AdminProductUrlComponent
   ],
   imports: [
     BrowserModule,

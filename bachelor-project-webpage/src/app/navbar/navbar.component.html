@@ -1,7 +1,9 @@
 <div>
   <mat-toolbar>
     <a routerLink="/home" mat-raised-button> Home </a>
-    <a *ngIf="isUserLogged === 'true'" routerLink="/favourites" mat-raised-button> My favourites </a>
+    <a *ngIf="isUserLogged === 'true' && !(isUserAdmin === 'true')" routerLink="/favourites" mat-raised-button> My favourites </a>
+    <a *ngIf="isUserLogged === 'true' && isUserAdmin === 'true'" routerLink="/admin/products" mat-raised-button> Manage products </a>
+
     <span class="fill-space"></span>
     <a *ngIf="isUserLogged === 'false'" routerLink="/login" mat-raised-button> Login </a>
     <a *ngIf="isUserLogged === 'true'" (click)="logout()" mat-raised-button> Logout </a>

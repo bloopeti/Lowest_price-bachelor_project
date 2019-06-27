@@ -1,0 +1,64 @@
+<div class="container">
+  <div *ngIf="(isUserAdmin === 'true')">
+    <h2>Product list</h2>
+    <div *ngIf="products.length == 0 && requestComplete == false">
+      <div class="alert alert-info" role="alert"> Loading...</div>
+    </div>
+    <div *ngIf="products.length == 0 && requestComplete == true">
+      <div class="alert alert-info" role="alert"> No product found!</div>
+    </div>
+
+
+    <div *ngIf="products.length > 0">
+      <table mat-table [dataSource]="products" class="mat-elevation-z8">
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name</th>
+          <td class="clickable" mat-cell *matCellDef="let product"
+              (click)="viewDetails(product)"> {{product.name}} </td>
+        </ng-container>
+
+        <!-- Details Column -->
+        <ng-container matColumnDef="details">
+          <th mat-header-cell *matHeaderCellDef> Details</th>
+          <td class="clickable" mat-cell *matCellDef="let product">
+            <button mat-raised-button (click)="viewDetails(product)"> Details</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <div class="container">
+        <div>
+          <h2> Product Details </h2>
+          <p>
+            <label> Name: </label>
+            <input #productName [(ngModel)]="productSelected.name" placeholder="product name"/>
+          </p>
+          <p *ngIf="productSelected.productDetails.brand">
+            <label> Brand: </label>
+            <span>{{productSelected.productDetails.brand}}</span>
+          </p>
+        </div>
+        <button (click)="add()" mat-flat-button>Add</button>
+        <button *ngIf="productSelected.id" (click)="update()" mat-flat-button>Update</button>
+        <button *ngIf="productSelected.urls.length > 0" (click)="manageProductUrls(productSelected.id)" mat-flat-button>
+          Manage the URLs
+        </button>
+        <button *ngIf="productSelected.id" (click)="openFullDetailPage(productSelected.id)" mat-flat-button> Open full
+          details
+        </button>
+        <br/>
+        <button (click)="getAllProducts()" mat-flat-button> Refresh list</button>
+        <br/>
+        <span *ngIf="!(message.length == 0)"> Message: {{message}}</span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!(isUserAdmin === 'true')">
+    <h1>You're unauthorized to view this page! (not admin)</h1>
+  </div>
+</div>

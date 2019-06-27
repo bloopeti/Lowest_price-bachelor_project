@@ -9,12 +9,14 @@ import {Router} from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   isUserLogged: string;
+  isUserAdmin: string;
 
   constructor(private router: Router) {
   }
 
   ngOnInit() {
     this.isUserLogged = localStorage.getItem('isUserLoggedIn');
+    this.isUserAdmin = localStorage.getItem('isUserAdmin');
 
     this.router.events.subscribe(event => {
       if (event.constructor.name === 'NavigationEnd') {

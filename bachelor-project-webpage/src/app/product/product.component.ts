@@ -22,6 +22,7 @@ export class ProductComponent implements OnInit {
   productSelected: Product;
   private sub: any;
   isUserLogged: string;
+  isUserAdmin: string;
   message: string;
 
   constructor(private router: Router, private route: ActivatedRoute,
@@ -39,6 +40,7 @@ export class ProductComponent implements OnInit {
         });
     });
     this.isUserLogged = localStorage.getItem('isUserLoggedIn');
+    this.isUserAdmin = localStorage.getItem('isUserAdmin');
     this.message = '';
   }
 

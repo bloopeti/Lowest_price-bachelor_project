@@ -8,6 +8,8 @@ import {RegisterComponent} from '../register/register.component';
 import {ProductComponent} from '../product/product.component';
 import {FavouritesComponent} from '../favourites/favourites.component';
 import {ProductDetailsComponent} from '../product-details/product-details.component';
+import {AdminProductComponent} from '../admin-product/admin-product.component';
+import {AdminProductUrlComponent} from '../admin-product-url/admin-product-url.component';
 
 
 export const routes: Routes = [
@@ -19,6 +21,8 @@ export const routes: Routes = [
   {path: 'product/search/:searchQuery', component: ProductComponent},
   {path: 'favourites', component: FavouritesComponent},
   {path: 'productDetails/:id', component: ProductDetailsComponent},
+  {path: 'admin/products', component: AdminProductComponent},
+  {path: 'admin/productUrl/:id', component: AdminProductUrlComponent},
   {path: '**', redirectTo: 'error'}
 ];
 

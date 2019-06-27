@@ -49,7 +49,7 @@
           <label> Brand: </label><span>{{productSelected.productDetails.brand}}</span>
         </p>
       </div>
-      <button *ngIf="isUserLogged === 'true'" (click)="addToFavourites(productSelected)" mat-flat-button> Favourite </button>
+      <button *ngIf="isUserLogged === 'true' && !(isUserAdmin === 'true')" (click)="addToFavourites(productSelected)" mat-flat-button> Favourite </button>
       <button (click)="openFullDetailPage(productSelected.id)" mat-flat-button> Open full details </button>
       <span *ngIf="!(message.length == 0)"> Message: {{message}}</span>
     </div>

@@ -32,6 +32,6 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </div>
-  <button *ngIf="isUserLogged === 'true'" (click)="addToFavourites(product)" mat-flat-button> Favourite </button>
+  <button *ngIf="isUserLogged === 'true'  && !(isUserAdmin === 'true')" (click)="addToFavourites(product)" mat-flat-button> Favourite </button>
   <span *ngIf="!(message.length == 0)"> Message: {{message}}</span>
 </div>
