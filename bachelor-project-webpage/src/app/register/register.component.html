@@ -1,20 +1,22 @@
 <div style="text-align: center">
   <div *ngIf="!(isUserLogged === 'true')">
-    <p>
-      <label>Email
-        <input [(ngModel)]="userToRegister.emailAddress" type="text"/>
-      </label>
-    </p>
-    <p>
-      <label>Password
-        <input [(ngModel)]="userToRegister.passNoHash" type="password"/>
-      </label>
-    </p>
-    <p>
-      <label>Re-enter password
-        <input [(ngModel)]="userToRegister.passNoHashRepeat" type="password"/>
-      </label>
-    </p>
+    <div align="center">
+      <table align="center">
+        <tr>
+          <td>Email</td>
+          <td><input [(ngModel)]="userToRegister.emailAddress" type="text"/></td>
+        </tr>
+        <tr>
+          <td>Password</td>
+          <td><input [(ngModel)]="userToRegister.passNoHash" type="password"/></td>
+        </tr>
+        <tr>
+          <td>Re-enter password</td>
+          <td><input [(ngModel)]="userToRegister.passNoHashRepeat" type="password"/></td>
+        </tr>
+      </table>
+    </div>
+
     <button (click)="attemptRegister(); userToRegister.passNoHash=''; userToRegister.passNoHashRepeat=''" mat-flat-button>
       Register
     </button>
