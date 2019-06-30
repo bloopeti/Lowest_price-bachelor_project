@@ -20,6 +20,7 @@ class FillerItem(scrapy.Item):
     currency = scrapy.Field()
     brand = scrapy.Field()
     productId = scrapy.Field()
+    productUrl = scrapy.Field()
     domain = scrapy.Field()
 
 

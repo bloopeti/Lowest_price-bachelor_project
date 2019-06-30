@@ -2,8 +2,35 @@ import json
 import sys
 
 import requests
-from scrapy.crawler import CrawlerProcess
+from scrapy.crawler import CrawlerProcess, Crawler
 from scrapy.utils.project import get_project_settings
+
+# class DomainCrawlerScript:
+#
+#     def __init__(self):
+#         self.crawler = CrawlerProcess(get_project_settings())
+#         self.crawler.install()
+#         self.crawler.configure()
+#
+#         # self.crawlr = Crawler(get_project_settings())
+#         # self.crawlr.conf
+#
+#     def _crawl(self, domain_pk):
+#         domain = Domain.objects.get(
+#             pk = domain_pk,
+#         )
+#         urls = []
+#         for page in domain.pages.all():
+#             urls.append(page.url())
+#         self.crawler.crawl(DomainSpider(urls))
+#         self.crawler.start()
+#         self.crawler.stop()
+#
+#     def crawl(self, domain_pk):
+#         p = Process(target=self._crawl, args=[domain_pk])
+#         p.start()
+#         p.join()
+
 
 if len(sys.argv) == 2:
     domain_name = sys.argv[1]
@@ -15,14 +42,19 @@ if len(sys.argv) == 2:
 
     scrapy_settings = get_project_settings()
 
-    process = CrawlerProcess(scrapy_settings)
+    start_urls = []
+    for productUrl in data:
+        start_urls.append(productUrl['url'])
 
     if response.ok:
-        for productUrl in data:
-            process.crawl(domain_name,
-                          start_url=productUrl['url'],
-                          product_id=productUrl['productId'])
-            process.start()
+        # for productUrl in data:
+        process = CrawlerProcess(scrapy_settings)
+
+        process.crawl(domain_name,
+                      start_urls=start_urls)
+        # start_url=productUrl['url'],
+        # product_id=productUrl['productId'])
+        process.start()
     else:
         print("\tCouldn't access the webservice! Status code: %d" % response.status_code)
 else:

@@ -8,8 +8,8 @@ class EmagSpider(scrapy.Spider):
     name = 'emag'
     allowed_domains = ['emag.ro']
 
-    def start_requests(self):
-        yield scrapy.Request(self.start_url)
+    # def start_requests(self):
+    #     yield scrapy.Request(self.start_url)
 
     def parse(self, response):
         price = response.css('div.product-page-pricing p.product-new-price::text').get().replace('.', '') + '.' + \
@@ -22,7 +22,8 @@ class EmagSpider(scrapy.Spider):
             currency = 'RON'
 
         product = FillerItem()
-        product['productId'] = self.product_id
+        product['productUrl'] = response.request.url
+        # product['productId'] = self.product_id
         product['domain'] = self.name
 
         product['price'] = float(price.strip())

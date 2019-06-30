@@ -7,7 +7,7 @@
 
 import requests
 import json
-from product_loader import load_product
+from product_loader import load_product_url
 
 
 class BachelorProjectPipeline(object):
@@ -18,7 +18,7 @@ class BachelorProjectPipeline(object):
 class RestPipeline(object):
     def process_item(self, item, spider):
         # print('\n custom pipe \n')
-        product_db = load_product(item['productId'], item['domain'])
+        product_db = load_product_url(item['productUrl'], item['domain'])
         #
         # print(product_db)
         #
@@ -27,7 +27,8 @@ class RestPipeline(object):
         #
         # print('\n custom pipe \n')
 
-        if product_db['id'] == item['productId']:
+        # if product_db['id'] == item['productId']:
+        if product_db['urls']['url'] == item['productUrl']:
             if product_db['urls']['domain'] == item['domain']:
                 if product_db['name'] in item['crawled_name']:
                     parts_to_update = []
