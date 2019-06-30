@@ -39,6 +39,7 @@
         </p>
       </div>
       <button (click)="removeFromFavourites(productSelected)" mat-flat-button> Un-favourite </button>
+      <button (click)="openFullDetailPage(productSelected.id)" mat-flat-button> Open full details </button>
       <span *ngIf="!(message.length == 0)"> Message: {{message}} </span>
     </div>
   </div>

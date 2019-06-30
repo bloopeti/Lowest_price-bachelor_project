@@ -70,4 +70,8 @@ export class FavouritesComponent implements OnInit {
     });
   }
 
+  openFullDetailPage(productId: number): void {
+    this.router.navigate(['productDetails', productId]);
+  }
+
 }

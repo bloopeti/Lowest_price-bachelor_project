@@ -21,6 +21,7 @@ export class NavbarComponent implements OnInit {
     this.router.events.subscribe(event => {
       if (event.constructor.name === 'NavigationEnd') {
         this.isUserLogged = localStorage.getItem('isUserLoggedIn');
+        this.isUserAdmin = localStorage.getItem('isUserAdmin');
       }
     });
   }

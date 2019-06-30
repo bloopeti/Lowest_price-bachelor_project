@@ -11,8 +11,8 @@
   <img width="300" alt="Peter's face"
        src="assets/my_face.jpg">
 
-  <h1>
-      <input class="search_box" [(ngModel)]="searchQuery" type="text" placeholder=" What product would you like to compare today? "/>
-    <button (click)="search(searchQuery); searchQuery=''" mat-flat-button> Search </button>
-  </h1>
+  <div class="search_bar">
+    <input class="search_box" [(ngModel)]="searchQuery" type="text" placeholder=" What product would you like to see? "/>
+    <button (click)="search(searchQuery); searchQuery=''" mat-flat-button> Search</button>
+  </div>
 </div>
