@@ -75,7 +75,7 @@ COMPUTER SCIENCE DEPARTMENT}
 \newcommand{\uline}[1]{\rule[0pt]{#1}{0.4pt}}
 %\renewcommand{\thesisdedication}{P\u{a}rin\c{t}ilor mei}
 
-\raggedbottom
+\raggedbottom % care!!!!!!!!!!!!!!! removes page filling mechanism that messes w spacing
 
 \begin{document}
 %\frontmatter
@@ -91,8 +91,6 @@ COMPUTER SCIENCE DEPARTMENT}
 
 \setcounter{secnumdepth}{3}
 
-\pagenumbering{Roman}
-\setcounter{page}{1}
 
 \begin{center}
   \utcnlogo
@@ -151,7 +149,7 @@ COMPUTER SCIENCE DEPARTMENT}
 
 \begin{enumerate}
   \item {\bf Project proposal:} {\it A financial efficiency boosting system for consumer-grade products based on an extension for the Google Chrome browser, web crawling, a web platform and a RESTful web service.}
-  \item {\bf Project contents:} {\it The presented thesis contains eight chapters followed by the Bibliography. The chapters are as follows: Project Context, Project Objectives and Specifications, Bibliographic Research, Analysis and Theoretical Foundation, Detailed Design and Implementation, Testing and Validation, User's Manual and Conclusions. Each chapter is divided, respectively, into a series of sections and subsections for a clearer description.}
+  \item {\bf Project contents:} {\it The presented thesis contains eight chapters followed by the Bibliography. The chapters are: Project Context, Project Objectives and Specifications, Bibliographic Research, Analysis and Theoretical Foundation, Detailed Design and Implementation, Testing and Validation, User's Manual and Conclusions.}
   \item {\bf Place of documentation:} Technical University of Cluj-Napoca, Computer Science Department
   \item {\bf Consultants:} \thesissupervisor
   \item {\bf Date of issue of the proposal:} November 1, 2016
@@ -166,8 +164,6 @@ COMPUTER SCIENCE DEPARTMENT}
 %\end{small}
 
 \thispagestyle{empty}
-
-
 \newpage
 $ $
 %\begin{center}
@@ -218,8 +214,13 @@ Data \hspace{8cm} Nume, Prenume
 \hspace{9.4cm}Semn\u{a}tura
 
 \thispagestyle{empty}
-
 \newpage
+$ $
+\thispagestyle{empty}
+\newpage
+
+\pagenumbering{Roman}
+\setcounter{page}{1}
 
 \tableofcontents
 \newpage
@@ -409,13 +410,13 @@ There are similar tools currently available. One of those is compari.ro, which a
 
 \section{Product Overview}
 
-The Financial Efficiency Boosting System should provide an easy to use way to users to see the best offer for their desired product. This concept can be seen in figure \ref{fig:system_diagram}.
+The Financial Efficiency Boosting System should provide an easy to use way to users to see the best offer for their desired product. This concept can be seen in figure \ref{fig:app_system_diagram}.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{img/system_diagram.png}
+  \includegraphics[width=\linewidth]{img/app_system_diagram.png}
   \caption{The FEBS's system diagram}
-  \label{fig:system_diagram}
+  \label{fig:app_system_diagram}
 \end{figure}
 
 
@@ -515,6 +516,11 @@ For the client side:
 
 \chapter{Bibliographic Research}
 
+
+
+
+\chapter{Analysis and Theoretical Foundation}
+
 \section{RESTful Web Services}
 
 The concept of Representational State Transfer (REST) as an architectural style for distributed systems was invented and presented in 2000 by Roy Thomas Fielding in the 5th chapter of his doctoral dissertation \cite{fielding_rest_definition}. Fielding described it as follows: "REST provides a set of architectural constraints that, when applied as a whole, emphasizes scalability of component interactions, generality of interfaces, independent deployment of components, and intermediary components to reduce interaction latency, enforce security, and encapsulate legacy systems".
@@ -567,7 +573,7 @@ The Scrapy architecture is constructed from a few main elements. Understanding t
 
 \footnotetext[4]{Image from \cite{scrapy_architecture}}
 
-At the center of the architecture seems to be the Scrapy Engine, which controls the data flow between its elements, but actually the whole system revolves around the spiders. It is worth noting though that the Scrapy Engine is built on the Twisted event-driven framework. This means that the whole cycle is implemented using non-blocking code, granting concurrency to the applications written using Scrapy. Therefore writing blocking code while using Scrapy is contradictory to the whole idea behind this architectural decision \cite{learning_scrapy}. The whole scraping process starts with when a spider is invoked, either via the Scrapy command line interface or from a script. The spider then sends the details of the requests built based on the given start URLs, headers and cookies to the Engine. The Engine then passes these requests to the Scheduler adding a delay between the requests which are sent to the same website. The value of the delay is set by taking values set in the settings file of the project, or directly from the spider, if it has a \lstinline$download_delay$ attribute defined. If neither are defined, the delay takes a default value, which is 0. Setting a download delay might help with avoiding some scraping detection and blocking mechanisms which detect the interval of time and the regularity of the requests received from a given IP address. The Scheduler keeps returning requests to the Engine every time a previously sent request is completed, thus controlling the number of concurrent requests. The Engine forwards the recieved request from the Scheduler to the Downloader, which then fetches a response based on the given request and returns it to the Engine. This interaction between the Engine and the Downloader is done through a framework of hooks into the request/response handling. This part of the architecture is composed of elements called 'Downloader Middleware'. When activated, Downloader Middlewares alter the requests and responses passing through the Engine-Downloader section. Upon receiving them, the Engine in turn routes the responses to the spiders. The spiders then process the information contained in the request. One way of using Scrapy is extracting data using the built-in XPath and CSS selectors and inserting it into Items. Alternatively, additional requests can be created by using the spiders to extract URLs from the response similarly to how Item filling data is extracted. This second part of the iteraction between the Engine and the Spiders happens through elements called 'Spider Middleware'. They, similarly to the Downloader Middlewares, are a framework of hooks into the spider processing process. Spider Middlewares might seem to be useless at first, since the spiders should compeltely process everything. This might be true in theory, but there may be situations in practice where start requests, returned Items or extracted requests need post-processing, or some exceptions returned by the spider need to be handled. The extracted Items and generated requests are sent to the Scrapy Engine to be accordingly distributed: the requests generated from the URLs are sent to the Scheduler and the Items are sent to the Item Pipeline. The Item Pipleline is composed by a sequence of scripts that manipulate the returned item. They can be used to clean, validate and/or persist the data in the Items. The process repeats itself from the point where the Scheduler returns requests to the Engine until there are no requests left to process.
+At the center of the architecture seems to be the Scrapy Engine, which controls the data flow between its elements, but actually the whole system revolves around the spiders. It is worth noting though that the Scrapy Engine is built on the Twisted event-driven framework. This means that the whole cycle is implemented using non-blocking code, granting concurrency to the applications written using Scrapy. Therefore writing blocking code while using Scrapy is contradictory to the whole idea behind this architectural decision \cite{learning_scrapy}. The whole scraping process starts with when a spider is invoked, either via the Scrapy command line interface or from a script. The spider then sends the details of the requests built based on the given start URLs, headers and cookies to the Engine. The Engine then passes these requests to the Scheduler adding a delay between the requests which are sent to the same website. The value of the delay is set by taking values set in the settings file of the project, or directly from the spider, if it has a \lstinline$download_delay$ attribute defined. If neither are defined, the delay takes a default value, which is 0. Setting a download delay might help with avoiding some scraping detection and blocking mechanisms which detect the interval of time and the regularity of the requests received from a given IP address. The Scheduler keeps returning requests to the Engine every time a previously sent request is completed, thus controlling the number of concurrent requests. The Engine forwards the recieved request from the Scheduler to the Downloader, which then fetches a response based on the given request and returns it to the Engine. This interaction between the Engine and the Downloader is done through a framework of hooks into the request/response handling. This part of the architecture is composed of elements called 'Downloader Middleware'. When activated, Downloader Middlewares alter the requests and responses passing through the Engine-Downloader section. Upon receiving them, the Engine in turn routes the responses to the spiders. The spiders then process the information contained in the request. One way of using Scrapy is extracting data using the built-in XPath and CSS selectors and inserting it into Items. Alternatively, additional requests can be created by using the spiders to extract URLs from the response similarly to how Item filling data is extracted. This second part of the iteraction between the Engine and the Spiders happens through elements called 'Spider Middleware'. They, similarly to the Downloader Middlewares, are a framework of hooks into the spider processing process. Spider Middlewares might seem to be useless at first, since the spiders should compeltely process everything. This might be true in theory, but there may be situations in practice where start requests, returned Items or extracted requests need post-processing, or some exceptions returned by the spider need to be handled. The extracted Items and generated requests are sent to the Scrapy Engine to be accordingly distributed: the requests generated from the URLs are sent to the Scheduler and the Items are sent to the Item Pipeline. The Item Pipeline is composed by a sequence of scripts that manipulate the returned item. They can be used to clean, validate and/or persist the data in the Items. The process repeats itself from the point where the Scheduler returns requests to the Engine until there are no requests left to process.
 
 
 \subsubsection{Spiders}
@@ -585,7 +591,7 @@ Scrapy defines Items as "simple containers used to collect the scraped data." as
 
 In Scrapy, custom Items are defined as classes which extend the \lstinline$scrapy.Item$ class. Fields are then defined by assigning \lstinline$scrapy.Field()$ objects to the custom Item's class attributes. The Field objects' purpose is to define a field's metadata in one place. There is no restriction on what that metadata can or should contain, therefore a developer choose to omit everything or define any new metadata which is necessary for their project. Items can also be extended by simply declaring a subclass of the original custom Item. Subclassing Items may change or add metadata to the original Item's fields, or add additional fields to it.
 
-The two main components beside spiders which use Items are Item Loaders and the the Item Pipeline. Item Loaders are a way of conveniently populating the fields of items with extracted data. Even though Items can very easily be filled by using the dict-like API, Scrapy states that "Item Loaders provide a much more convenient API for populating them from a scraping process, by automating some common tasks like parsing the raw extracted data before assigning it." \cite{scrapy_docs}. The Item Pipeline is one of the main components of the Scrapy architecture. After a spider has finished extracting data from the response and filling an Item either via the dict-like API or an Item Loader, the Item will be sent to the Item Pipeline. The Item Pipeline processes the returned Item further by sending it sequentially through several components. Activating an Item Pipeline component is done in the settings of the project, by adding the component's class to the \lstinline$ITEM_PIPELINES$ setting and assigning them an integer value in the 0-1000 interval. The assigned value dictates the order of the components that the Items returned by the spiders have to pass through. Item Piplelines must implement the \lstinline$process_item()$ method, which takes two parameters. The first parameter is called \lstinline$item$ and represents the item scraped, while the second parameter, called \lstinline$spider$ and it stores the spider that scraped the item. Typical uses of Item Pipeline components includes filtering duplicate items, field validation and dropping of items which have errors in them, storing items in a file with JSON being a common choice, or persisting the items in a database.
+The two main components beside spiders which use Items are Item Loaders and the the Item Pipeline. Item Loaders are a way of conveniently populating the fields of items with extracted data. Even though Items can very easily be filled by using the dict-like API, Scrapy states that "Item Loaders provide a much more convenient API for populating them from a scraping process, by automating some common tasks like parsing the raw extracted data before assigning it." \cite{scrapy_docs}. The Item Pipeline is one of the main components of the Scrapy architecture. After a spider has finished extracting data from the response and filling an Item either via the dict-like API or an Item Loader, the Item will be sent to the Item Pipeline. The Item Pipeline processes the returned Item further by sending it sequentially through several components. Activating an Item Pipeline component is done in the settings of the project, by adding the component's class to the \lstinline$ITEM_PIPELINES$ setting and assigning them an integer value in the 0-1000 interval. The assigned value dictates the order of the components that the Items returned by the spiders have to pass through. Item Pipelines must implement the \lstinline$process_item()$ method, which takes two parameters. The first parameter is called \lstinline$item$ and represents the item scraped, while the second parameter, called \lstinline$spider$ and it stores the spider that scraped the item. Typical uses of Item Pipeline components includes filtering duplicate items, field validation and dropping of items which have errors in them, storing items in a file with JSON being a common choice, or persisting the items in a database.
 
 By the aggregation of the presented basic concepts and many more, Scrapy proves to be an ideal framework for anyone wishing to create a web scraper, be it lightweight or poweful af, either as a standalone application, or a module in a larger project.
 
@@ -631,16 +637,284 @@ The use interface of the extension is composed by the popup page and its control
 Content scripts are JavaScript files that run in the context of a web page and can read the contents of a webpage using the Document Object Model (DOM) of said web page, thus being able to modify it or send information to the parent extension. The content script communicates with the rest of the extension via messages.
 
 
-\section{Web development}
-\subsection{Angular 7}
+\chapter{Detailed Design and Implementation}
 
+\section{System Composition}
 
-\chapter{Analysis and Theoretical Foundation}
+The proposed project relies on several modules for providing an accessible, easy to use tool for product price tracking. The component providing a means of communication between every other module is the RESTful Web Server that acts as a uniform means of interacting with the database of the application, as well as providing some basic functionality, such as validation of user logins. The modules being at the extremities of the system are the Web Crawling module, which contains the crawlers. The Web site is the element which provides the most functionality to the end user. The last module in the application is the Google Chrome browser extension. These modules interact to create the complete application.
+
+The RESTful Web server connects with the database to standardize and make the connection to the database more accessible. This is done via the RESTful Web Service provided by it, which is accessible via HTTP requests to a series of URLs. The fact that HTTP is so widespread and there are ways to issue HTTP requests from almost any platform confers a very wide accessibility to it. The rest of the components connect to the web service via the exposed HTTP requests.
+
+The crawling module connects to the web server in two points: once for requesting the URLs belonging to the domain to be crawled and then when it sends crawled data back to the web server to be peristed. The URL requesting section is done as part of the script that calls the adequate spiders based on the passed argument. Returning scraped data to the server is done in the final component of the Item Pipeline.
+
+The web site populates its views with the data sent by the web service as a response to the web site's requests. Additionally, the web site sends data to the web service such as a user's authentication information to be validated, or updated or new data, such as a freshly registered user's data, new favourite product relations, new or updated products or product URLs.
+
+The Google Chrome extension communicates with the web service every time a new web page is opened to check if the page belongs to a supported product. This is necessary so that the extension can constantly provide useful information to the user at a distance of a click.
+
+This structure can be seen on figure \ref{fig:app_component_diagram}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{img/app_component_diagram_actual.png}
+  \caption[]{Component diagram of of the proposed application}
+  \label{fig:app_component_diagram}
+\end{figure}
+
 
 \section{Conceptual Architecture}
 
+This section presents the Conceptual Architecture of the complete system. Due to the complexity of some modules, the architecture of the modules themselves will be also presented separately.
 
-\chapter{Detailed Design and Implementation}
+
+\subsection{System Architecture Overview}
+
+The client-server architecture is the system's foundation. The server side has multiple components: a database server, which deploys the database for the RESTful web sevice to interface with; a RESTful web server, which deploys the RESTful web service to be accessible by every other component in the system's architecture; and a web page server, which deploys the web app so that this can be accessed by the browser. The client side is formed by a web browser, preferably Google Chrome. The browser extension is loaded onto it. The browser renders the Web app to display this, creating the largest part of the user interface. The browser extension redirects its user to the web app, and checks for supported product's URLs by using some functionalities exposed by the RESTful web service. Figure \ref{fig:app_conceptual_architecture_system} presents this, and it can also be seen as a deployment diagram of the system.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.65\linewidth]{img/app_conceptual_architecture_system.png}
+  \caption[]{Conceptual architecture / deployment of the system}
+  \label{fig:app_conceptual_architecture_system}
+\end{figure}
+
+
+\subsection{MySQL Database}
+
+The database management system used for this application is MySQL 8.0 because of the fact that it provides a relational database and that it was familiar to use. The database schema and tables have been generated using the Spring framework's functionality, inherited from Hibernate ORM. You can see the database diagram in figure \ref{fig:database_diagram}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.65\linewidth]{img/database_diagram.png}
+  \caption[]{The database diagram of the used MySQL database}
+  \label{fig:database_diagram}
+\end{figure}
+
+
+\subsection{RESTful Web Service Module Architecture Overview}
+
+The web service has a layered architecture, dividing the module into two layers. The Data Access Layer, which connects to the database through the repository classes and exposes CRUD and some other functionalities. The second layer is the Business Logic Layer, which deals with implementing the methods in the Operations component which will then be exposed though the REST Controllers. The system is unable to work with pure entities, so we will need to convert them to Data Transfer Objects to eliminate cyclicity while serializing the objects returned by the methods in the Operations component. This can be seen on figure \ref{fig:app_conceptual_architecture_rest}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.65\linewidth]{img/app_conceptual_architecture_rest.png}
+  \caption[]{Conceptual architecture of the RESTful web service}
+  \label{fig:app_conceptual_architecture_rest}
+\end{figure}
+
+
+\subsection{Crawling System Module Architecture Overview}
+
+The crawling system's architecture has been discussed in section \ref{scrapy_arch} and can be seen in figure \ref{fig:scrapy_architecture}. The crawling module that this application uses is composed of a script that calls the crawling process and the crawling system with several subcomponents. The crawling system contains a component with spiders, the Items used by them and the components of the Item Pipeline through which the returned Items pass through. This can be seen on figure \ref{fig:app_conceptual_architecture_crawl}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.65\linewidth]{img/app_conceptual_architecture_crawl.png}
+  \caption[]{Conceptual architecture of the crawling system}
+  \label{fig:app_conceptual_architecture_crawl}
+\end{figure}
+
+
+\subsection{Web Site Module Architecture Overview}
+
+The web site is built using Angular, so it is sorted into components. Each component can either be a different web page or just a section of a web page. The components are built around the Model-View-Controller architecture. The components are composed of a controller script part, a view part, which is an HTML file, and a style sheet. The controller uses the model to load data with which the view is updated to show. The rest of the MVC functioning cycle is omitted from the diagram, as it is strictly limited to the architectual layout of the module. In essence, the omitted part describes the fact that the user reacts to what they see in the view by interacting with the controller functionalities linked to the view elements. The view elements take advantage of Cascading Style Sheets (CSS) to enhance their visibility and user friendliness. This can be seen on figure \ref{fig:app_conceptual_architecture_site}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.65\linewidth]{img/app_conceptual_architecture_site.png}
+  \caption[]{Conceptual architecture of the web site}
+  \label{fig:app_conceptual_architecture_site}
+\end{figure}
+
+
+\subsection{Google Chrome Browser Extension Module Architecture Overview}
+
+The architecture of the Google Chrome browser extension is composed of the background script, the popup script and the popul view. The background script runs when a new page is opened to get its URL, which is the checked in the database according to figure \ref{fig:app_component_diagram}. In case the URL belongs to a supported product, some data is set in the browser's storage according to the price of the product. Any time a page closes, the entry belonging to that page is eliminated from the storage. The popup script checks the content of the storage if the current tab appears as one for which it needs to display something in the view. In case this is the case, it updates the 'popup.html' file's DOM to show a specific information. This can be seen on figure \ref{fig:app_conceptual_architecture_chrome_extension}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.65\linewidth]{img/app_conceptual_architecture_chrome_extension.png}
+  \caption[]{Conceptual architecture of the Google Chrome browser extension}
+  \label{fig:app_conceptual_architecture_chrome_extension}
+\end{figure}
+
+
+\section{Use Cases}
+
+The application's users can be categorized into the following groups: guest, user, admin, system maintainer. The guest, user and admin interact with the application exclusively via the front-end part of it. The system maintainer interacts with the web crawling module in the back-end via a terminal. The full Use Case diagram can be seen in figure \ref{fig:app_use_case}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\linewidth]{img/app_use_case.png}
+  \caption[]{The Use Case diagram of the application}
+  \label{fig:app_use_case}
+\end{figure}
+
+Out of the listed use cases, a specific case for using the Chrome extension and for starting a crawling process has been further described in more details.
+
+
+\subsection{Get the Best Offer for a Product} \label{sec:use_case_not_cheapest}
+
+\subsubsection{Brief Description}
+
+The purpose of this section is to capture the flow of events that an actor must follow in order to get the best offer for the product they wish to purchase.
+
+
+\subsubsection{Primary Actor}
+
+Web customer
+
+
+\subsubsection{Stakeholders and Interests}
+
+Web customer – interested in having an accessible tool to get the best offer for the product they wish to buy
+
+
+\subsubsection{Flow of Events}
+
+The flow of events for this use case can be seen in figure \ref{fig:flow_not_cheapest_offer}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.4\linewidth]{img/flow_not_cheapest_offer.png}
+  \caption{Flow of events when a user accesses a supported product's web page which does not sell the product at the cheapest price}
+  \label{fig:flow_not_cheapest_offer}
+\end{figure}
+
+
+\begin{enumerate}
+
+  \item \textbf{Main Flow}
+
+  \begin{enumerate}
+    \item \textbf{Use Case Start} - This use case starts when the actor accesses the webpage of a supported item on a supported webshop’s domain and the price is not the cheapest.
+    \item The Google Chrome browser extension notices that the actor accessed a supported webpage and activates.
+    \item The actor clicks on the extension. \label{step:open_extension}
+    \item The extension opens a popup.
+    \item The actor clicks the product link in the popup. \label{step:select_product_link}
+    \item The browser redirects the actor to the website selling the same item at the cheapest price currently tracked in the system.
+    \item The actor gets to the website selling the item at the lowest price.
+  \end{enumerate}
+
+
+  \item \textbf{Alternate Flows}
+
+  \begin{enumerate}
+    \item This flow can occur at step \ref{step:open_extension}, where the actor does not click the extension.
+    \begin{enumerate}
+      \item The main flow ends.
+    \end{enumerate}
+
+    \item This flow can occur at step \ref{step:select_product_link}, where the actor does not click the product link in the popup.
+    \begin{enumerate}
+      \item The main flow ends.
+    \end{enumerate}
+  \end{enumerate}
+
+\end{enumerate}
+
+
+\subsubsection{Sequence Diagram for the Main Flow}
+
+When this use case is triggered, the Chrome extension's background script gets activated via an 'onUpdated' event. When the page finishes loading the background script reads the tab's URL. The read URL's domain name is checked inside a list of supported domains with the \lstinline$checkSupportedDomain(tab)$ function. If the domain is supported, the URL is checked to be the cheapest one for a supported product with the \lstinline$checkCheaperPrice(url, tabId)$ function. This function sends an HTTP request to the REST controller dealing with ProductUrl-s, for getting the cheapest URL which is similar to the pathname of the accessed URL. The REST controller passes the argument to the method dealing with this stuff inside the BLL file which works with ProductUrl-s. The method further calls the ProductUrlRepository's custom function for finding ProductUrl-s in the database, which then retrieves all the URLs which are similar to the passed seach term (the original URL's pathname). The BLL method retrieves the first element of the passed result, in case it is not empty, goes to the URL's product and from the product's URL list it finds the URL with the cheapest price and returns it. The cheapest URL is then returned to the REST controller, which returns it as a response to the previously mentioned HTTP request. Upon receiving the response, the background script stores data about the URL (either it is not the cheapest, in which case we store the cheapest URL, or it is, in which case we only store this fact). The popup script then reads the storage content and based on what it sees it updates the view. The user then clicks on the product URL and is redirected to the cheapest URL. This can be seen in figure \ref{fig:sequence_not_cheapest_offer}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{img/sequence_not_cheapest_offer.png}
+  \caption{Sequence diagram of the use case found in section \ref{sec:use_case_not_cheapest}}
+  \label{fig:sequence_not_cheapest_offer}
+\end{figure}
+
+
+\subsubsection{Preconditions}
+
+\begin{enumerate}
+  \item The actor has Google Chrome installed on their machine to be able to install the extension for the FEBS.
+  \item The FEBS Google Chrome browser extension is installed.
+\end{enumerate}
+
+
+\subsubsection{Postconditions}
+
+\begin{enumerate}
+  \item The actor is on the webpage selling the product they wish to buy at the best price.
+\end{enumerate}
+
+
+\subsection{Update the Data Available in the Database for Items Present on a Certain Supported Domain} \label{sec:use_case_crawl_update_database}
+
+\subsubsection{Brief Description}
+
+The purpose of this section is to capture the flow of events that an actor must follow in order to update the data available in the database for items present on a certain supported domain.
+
+
+\subsubsection{Primary Actor}
+
+System maintainer
+
+
+\subsubsection{Stakeholders and Interests}
+
+System maintainer – interested in having an easy to use method to keep the database up to date.
+
+
+\subsubsection{Flow of Events}
+
+The flow of events for this use case can be seen in figure \ref{fig:flow_crawl_update_database}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.4\linewidth]{img/flow_crawl_update_database.png}
+  \caption{Flow of events when a system maintainer wants start a crawling process on a supported domain to update the database}
+  \label{fig:flow_crawl_update_database}
+\end{figure}
+
+\begin{enumerate}
+
+\item \textbf{Main Flow}
+
+  \begin{enumerate}
+    \item \textbf{Use Case Start} - This use case starts when the actor opens a terminal window in the context of the system's web crawling module's directory.
+    \item The actor runs the \lstinline$python bachelor_project/crawler_caller.py <domain_name>$ commain, where the inputted \lstinline$domain_name$ mandatory parameter is from the list of supported domains.
+    \item The crawling process automatically executes, writing its output to a log file and automatically persisting the changed items in the database using the RESTful web service.
+  \end{enumerate}
+
+
+  \item \textbf{Alternate Flows}
+
+  This flow of events does not have alternate flows.
+
+\end{enumerate}
+
+
+\subsubsection{Sequence Diagram for the Main Flow}
+
+This use case is triggered by opening a terminal in the crawling module's project folder context. In the terminal the \lstinline$python crawler_caller.py <domain_name>$ command must be run, which takes one mandatory parameter containing the domain name of a supported domain. The crawling process will start from the start\_urls created by requesting the URLs belonging to this domain fom the REST controller that works with ProductUrl-s. The process of accessing a RESTful service is explained in the Sequence Diagram section for the use case in section \ref{sec:use_case_not_cheapest}, and it can be seen in diagram \ref{fig:sequence_not_cheapest_offer}, therefore it will not be detailed again. The URLs are extracted into an array from the returned ProductUrl list, then the resulting array is set as the start\_urls parameter of the spider. Since spiders' names are the domain names they work on, the active spider is set by using the parameter passed in the terminal command. After everything is setup, the crawling process starts and executes as explained in subsubsection \ref{scrapy_arch}. It is worth noting that the spider takes the FillerItem class from the Item classes defined in the 'items.py' file, and fills it with extracted data. After the extraction is complete, the item is returned, having to pass through the Item Pipeline. In the Item Pipeline there is a component defined called 'RestPipeline'. This pipeline component first takes the product crawled from the database, then compares the data crawled to the data already in the database. If a piece of data is different, it is marked as a 'part to update'. At the end of this component, the script goes through every part to update and persists the scraped data in the database using the adequate REST controller. This can be seen in figure \ref{fig:sequence_crawl_update_database}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{img/sequence_crawl_update_database.png}
+  \caption{Sequence diagram of the use case found in section \ref{sec:use_case_crawl_update_database}}
+  \label{fig:sequence_crawl_update_database}
+\end{figure}
+
+
+\subsubsection{Preconditions}
+
+\begin{enumerate}
+  \item The actor's machine has Python 3 and the virtualenv tool installed.
+  \item The actor has the virtual environment of the crawling module activated.
+\end{enumerate}
+
+
+\subsubsection{Postconditions}
+
+\begin{enumerate}
+  \item The products with changed data fields are persisted in the database.
+\end{enumerate}
+
+
+
+
 
 % \begin{lstlisting}
 % scrapy genspider [-t template] <name> <domain>
@@ -693,7 +967,7 @@ The Google Chrome extension management system checks the loaded extension and sh
   \label{fig:extension_error}
 \end{figure}
 
-After loading the extension we can finally access the extension in the context of the developer tools. For testing the different components of the extension we have to access their developer tools in a specific way. To access the background page's developer tools we have to go to the enxtensions page, have developer mode active and click on the 'background page' link in the extension's section. To access the popup's developer tools we have to navigate to a page where the extension is active, then right-click the extension's icon in the taskbar, and select the 'Inspect pop-up' option. We know that the extension is active when its icon is not greyed-out. This can be seen on figure \ref{mfig:active_and_inactive_extension}
+After loading the extension we can finally access the extension in the context of the developer tools. For testing the different components of the extension we have to access their developer tools in a specific way. To access the background page's developer tools we have to go to the extensions page, have developer mode active and click on the 'background page' link in the extension's section. To access the popup's developer tools we have to navigate to a page where the extension is active, then right-click the extension's icon in the taskbar, and select the 'Inspect pop-up' option. We know that the extension is active when its icon is not greyed-out. This can be seen on figure \ref{mfig:active_and_inactive_extension}
 
 \begin{figure}[ht]
   \centering
@@ -954,7 +1228,7 @@ In the world dominated by information, options and opportunities the modern man'
 
 The solution presented by compari.ro is great, but not the most accessible one, as a user would need to find its web site, navigate to it, find a product and only then could they choose a webshop to buy it from.
 
-I have developed a web application that tracks the prices of some products across ecommerce stores and exposes this information to users through a handy Google Chrome browser extension and a web site. The goals of this application were: 
+I have developed a web application that tracks the prices of some products across ecommerce stores and exposes this information to users through a handy Google Chrome browser extension and a web site. The goals of this application were:
 
 \begin{enumerate}
   \item accessibility
@@ -986,6 +1260,6 @@ The application could further be developed by adding the following to it:
 \bibliographystyle{IEEEtran}
 \bibliography{thesis}%same file name as for .bib
 
-\include{apendix}
+% \include{apendix}
 
 \end{document}
