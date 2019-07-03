@@ -1,9 +1,8 @@
-package utcn.zavaczkipeter.bachelorprojectwebservice.bll.crud;
+package utcn.zavaczkipeter.bachelorprojectwebservice.bll.operations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos.ProductDto;
-import utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos.ProductUrlDto;
 import utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos.converters.ProductConverter;
 import utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos.converters.ProductDetailsConverter;
 import utcn.zavaczkipeter.bachelorprojectwebservice.dal.entities.Product;

@@ -1,4 +1,4 @@
-package utcn.zavaczkipeter.bachelorprojectwebservice.bll.crud;
+package utcn.zavaczkipeter.bachelorprojectwebservice.bll.operations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,12 +8,9 @@ import utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos.ProductUrlDto;
 import utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos.converters.ProductConverter;
 import utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos.converters.ProductPriceForUrlConverter;
 import utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos.converters.ProductUrlConverter;
-import utcn.zavaczkipeter.bachelorprojectwebservice.dal.entities.Product;
-import utcn.zavaczkipeter.bachelorprojectwebservice.dal.entities.ProductPriceForUrl;
 import utcn.zavaczkipeter.bachelorprojectwebservice.dal.entities.ProductUrl;
 import utcn.zavaczkipeter.bachelorprojectwebservice.dal.repositories.ProductUrlRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

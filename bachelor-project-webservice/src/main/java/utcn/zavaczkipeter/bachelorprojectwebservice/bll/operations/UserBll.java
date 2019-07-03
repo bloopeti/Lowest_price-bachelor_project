@@ -1,4 +1,4 @@
-package utcn.zavaczkipeter.bachelorprojectwebservice.bll.crud;
+package utcn.zavaczkipeter.bachelorprojectwebservice.bll.operations;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,7 @@ package utcn.zavaczkipeter.bachelorprojectwebservice.bll.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import utcn.zavaczkipeter.bachelorprojectwebservice.bll.crud.ProductPriceForUrlBll;
+import utcn.zavaczkipeter.bachelorprojectwebservice.bll.operations.ProductPriceForUrlBll;
 import utcn.zavaczkipeter.bachelorprojectwebservice.bll.dtos.ProductPriceForUrlDto;
 import utcn.zavaczkipeter.bachelorprojectwebservice.bll.wrappers.IdWrapper;
 

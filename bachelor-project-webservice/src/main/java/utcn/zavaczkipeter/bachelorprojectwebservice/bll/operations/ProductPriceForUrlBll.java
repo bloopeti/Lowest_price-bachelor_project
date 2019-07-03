@@ -1,4 +1,4 @@
-package utcn.zavaczkipeter.bachelorprojectwebservice.bll.crud;
+package utcn.zavaczkipeter.bachelorprojectwebservice.bll.operations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
