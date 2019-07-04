@@ -709,36 +709,11 @@ Content scripts are JavaScript files that run in the context of a web page and c
 
 \chapter{Detailed Design and Implementation}
 
-\section{System Composition}
-
-The proposed project relies on several modules for providing an accessible, easy to use tool for product price tracking. The component providing a means of communication between every other module is the RESTful Web Server that acts as a uniform means of interacting with the database of the application, as well as providing some basic functionality, such as validation of user logins. The modules being at the extremities of the system are the Web Crawling module, which contains the crawlers. The Web site is the element which provides the most functionality to the end user. The last module in the application is the Google Chrome browser extension. These modules interact to create the complete application.
-
-The RESTful Web server connects with the database to standardize and make the connection to the database more accessible. This is done via the RESTful Web Service provided by it, which is accessible via HTTP requests to a series of URLs. The fact that HTTP is so widespread and there are ways to issue HTTP requests from almost any platform confers a very wide accessibility to it. The rest of the components connect to the web service via the exposed HTTP requests.
-
-The crawling module connects to the web server in two points: once for requesting the URLs belonging to the domain to be crawled and then when it sends crawled data back to the web server to be peristed. The URL requesting section is done as part of the script that calls the adequate spiders based on the passed argument. Returning scraped data to the server is done in the final component of the Item Pipeline.
-
-The web site populates its views with the data sent by the web service as a response to the web site's requests. Additionally, the web site sends data to the web service such as a user's authentication information to be validated, or updated or new data, such as a freshly registered user's data, new favourite product relations, new or updated products or product URLs.
-
-The Google Chrome extension communicates with the web service every time a new web page is opened to check if the page belongs to a supported product. This is necessary so that the extension can constantly provide useful information to the user at a distance of a click.
-
-This structure can be seen on figure \ref{fig:app_component_diagram}.
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\linewidth]{img/app_component_diagram_actual.png}
-  \caption[]{Component diagram of of the proposed application}
-  \label{fig:app_component_diagram}
-\end{figure}
-
-
 \section{Conceptual Architecture}
 
-This section presents the Conceptual Architecture of the complete system. Due to the complexity of some modules, the architecture of the modules themselves will be also presented separately.
+This section presents the Conceptual Architecture of the complete system. Due to the complexity of some modules, the architecture of the modules themselves can be seen in the section describing the modules and components.
 
-
-\subsection{System Architecture Overview}
-
-The client-server architecture is the system's foundation. The server side has multiple components: a database server, which deploys the database for the RESTful web sevice to interface with; a RESTful web server, which deploys the RESTful web service to be accessible by every other component in the system's architecture; and a web page server, which deploys the web app so that this can be accessed by the browser. The client side is formed by a web browser, preferably Google Chrome. The browser extension is loaded onto it. The browser renders the Web app to display this, creating the largest part of the user interface. The browser extension redirects its user to the web app, and checks for supported product's URLs by using some functionalities exposed by the RESTful web service. Figure \ref{fig:app_conceptual_architecture_system} presents this, and it can also be seen as a deployment diagram of the system.
+The client-server architecture is the system's foundation. The server side has multiple components: a database server, which deploys the database for the RESTful web sevice to interface with; a RESTful web server, which deploys the RESTful web service to be accessible by every other component in the system's architecture; and a web page server, which deploys the web app so that this can be accessed by the browser. The client side is formed by a web browser, preferably Google Chrome. The browser extension is loaded onto it. The browser renders the Web app to display this, creating the largest part of the user interface. The browser extension redirects its user to the web app, and checks for supported product's URLs by using some functionalities exposed by the RESTful web service. The system is also build using a layered architecture, having three layers: the front-end which is the part that the user directly interacts with, composed of the web site and the Chrome extension; the back-end which is the working mechanism of the project, composed of the RESTful web service and the scraping system; and the database, an individual layer used for data storage. Figure \ref{fig:app_conceptual_architecture_system} presents this, and it can also be seen as a deployment diagram of the system.
 
 \begin{figure}[ht]
   \centering
@@ -748,69 +723,21 @@ The client-server architecture is the system's foundation. The server side has m
 \end{figure}
 
 
-\subsection{MySQL Database}
+\section{Use Cases} \label{sec:use_case}
 
-The database management system used for this application is MySQL 8.0 because of the fact that it provides a relational database and that it was familiar to use. The database schema and tables have been generated using the Spring framework's functionality, inherited from Hibernate ORM. You can see the database diagram in figure \ref{fig:database_diagram}.
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.65\linewidth]{img/database_diagram.png}
-  \caption[]{The database diagram of the used MySQL database}
-  \label{fig:database_diagram}
-\end{figure}
-
-
-\subsection{RESTful Web Service Module Architecture Overview}
-
-The web service has a layered architecture, dividing the module into two layers. The Data Access Layer, which connects to the database through the repository classes and exposes CRUD and some other functionalities. The second layer is the Business Logic Layer, which deals with implementing the methods in the Operations component which will then be exposed though the REST Controllers. The system is unable to work with pure entities, so we will need to convert them to Data Transfer Objects to eliminate cyclicity while serializing the objects returned by the methods in the Operations component. This can be seen on figure \ref{fig:app_conceptual_architecture_rest}.
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.65\linewidth]{img/app_conceptual_architecture_rest.png}
-  \caption[]{Conceptual architecture of the RESTful web service}
-  \label{fig:app_conceptual_architecture_rest}
-\end{figure}
-
-
-\subsection{Crawling System Module Architecture Overview}
-
-The crawling system's architecture has been discussed in section \ref{scrapy_arch} and can be seen in figure \ref{fig:scrapy_architecture}. The crawling module that this application uses is composed of a script that calls the crawling process and the crawling system with several subcomponents. The crawling system contains a component with spiders, the Items used by them and the components of the Item Pipeline through which the returned Items pass through. This can be seen on figure \ref{fig:app_conceptual_architecture_crawl}.
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.65\linewidth]{img/app_conceptual_architecture_crawl.png}
-  \caption[]{Conceptual architecture of the crawling system}
-  \label{fig:app_conceptual_architecture_crawl}
-\end{figure}
-
-
-\subsection{Web Site Module Architecture Overview}
-
-The web site is built using Angular, so it is sorted into components. Each component can either be a different web page or just a section of a web page. The components are built around the Model-View-Controller architecture. The components are composed of a controller script part, a view part, which is an HTML file, and a style sheet. The controller uses the model to load data with which the view is updated to show. The rest of the MVC functioning cycle is omitted from the diagram, as it is strictly limited to the architectual layout of the module. In essence, the omitted part describes the fact that the user reacts to what they see in the view by interacting with the controller functionalities linked to the view elements. The view elements take advantage of Cascading Style Sheets (CSS) to enhance their visibility and user friendliness. This can be seen on figure \ref{fig:app_conceptual_architecture_site}.
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.65\linewidth]{img/app_conceptual_architecture_site.png}
-  \caption[]{Conceptual architecture of the web site}
-  \label{fig:app_conceptual_architecture_site}
-\end{figure}
-
-
-\subsection{Google Chrome Browser Extension Module Architecture Overview}
-
-The architecture of the Google Chrome browser extension is composed of the background script, the popup script and the popul view. The background script runs when a new page is opened to get its URL, which is the checked in the database according to figure \ref{fig:app_component_diagram}. In case the URL belongs to a supported product, some data is set in the browser's storage according to the price of the product. Any time a page closes, the entry belonging to that page is eliminated from the storage. The popup script checks the content of the storage if the current tab appears as one for which it needs to display something in the view. In case this is the case, it updates the 'popup.html' file's DOM to show a specific information. This can be seen on figure \ref{fig:app_conceptual_architecture_chrome_extension}.
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.65\linewidth]{img/app_conceptual_architecture_chrome_extension.png}
-  \caption[]{Conceptual architecture of the Google Chrome browser extension}
-  \label{fig:app_conceptual_architecture_chrome_extension}
-\end{figure}
-
-
-\section{Use Cases}
+A use case diagram presents the use cases of the application and the distinguished actors that can interact with the system. It offers a general overview for the functionalities that the system can be used for.
 
 The application's users can be categorized into the following groups: guest, user, admin, system maintainer. The guest, user and admin interact with the application exclusively via the front-end part of it. The system maintainer interacts with the web crawling module in the back-end via a terminal. The full Use Case diagram can be seen in figure \ref{fig:app_use_case}.
+
+A system maintainer may only interact with the application by starting a crawling process.
+
+The admin, guest and user have three commonly accessible functionalities: using the Chrome extension, searching for a product on the webpage and looking at the details of a product they seached for.
+
+Besides the common actions, a guest may register to get an account or log in to an account, transcending to a user.
+
+A user can logout of their account to go back to guest level, add a product they searched for to their favourites, view the list of products they favourited or remove a product from the favourites list.
+
+An admin may see the full list of currently available products through a special view, they can create a new empty product entry or update the data in an existing product (currently only its name). An admin may interact with a product's URLs by a separate view, adding a new URL-price matching, with an empty price element, update the URL or domain of a product's URL.
 
 \begin{figure}[ht]
   \centering
@@ -822,7 +749,7 @@ The application's users can be categorized into the following groups: guest, use
 Out of the listed use cases, a specific case for using the Chrome extension and for starting a crawling process has been further described in more details.
 
 
-\subsection{Get the Best Offer for a Product} \label{sec:use_case_not_cheapest}
+\subsection{Get the Best Offer for a Product} \label{subsec:use_case_not_cheapest}
 
 \subsubsection{Brief Description}
 
@@ -883,18 +810,6 @@ The flow of events for this use case can be seen in figure \ref{fig:flow_not_che
 \end{enumerate}
 
 
-\subsubsection{Sequence Diagram for the Main Flow}
-
-When this use case is triggered, the Chrome extension's background script gets activated via an 'onUpdated' event. When the page finishes loading the background script reads the tab's URL. The read URL's domain name is checked inside a list of supported domains with the \lstinline$checkSupportedDomain(tab)$ function. If the domain is supported, the URL is checked to be the cheapest one for a supported product with the \lstinline$checkCheaperPrice(url, tabId)$ function. This function sends an HTTP request to the REST controller dealing with ProductUrl-s, for getting the cheapest URL which is similar to the pathname of the accessed URL. The REST controller passes the argument to the method dealing with this stuff inside the BLL file which works with ProductUrl-s. The method further calls the ProductUrlRepository's custom function for finding ProductUrl-s in the database, which then retrieves all the URLs which are similar to the passed seach term (the original URL's pathname). The BLL method retrieves the first element of the passed result, in case it is not empty, goes to the URL's product and from the product's URL list it finds the URL with the cheapest price and returns it. The cheapest URL is then returned to the REST controller, which returns it as a response to the previously mentioned HTTP request. Upon receiving the response, the background script stores data about the URL (either it is not the cheapest, in which case we store the cheapest URL, or it is, in which case we only store this fact). The popup script then reads the storage content and based on what it sees it updates the view. The user then clicks on the product URL and is redirected to the cheapest URL. This can be seen in figure \ref{fig:sequence_not_cheapest_offer}.
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\linewidth]{img/sequence_not_cheapest_offer.png}
-  \caption{Sequence diagram of the use case found in section \ref{sec:use_case_not_cheapest}}
-  \label{fig:sequence_not_cheapest_offer}
-\end{figure}
-
-
 \subsubsection{Preconditions}
 
 \begin{enumerate}
@@ -910,7 +825,7 @@ When this use case is triggered, the Chrome extension's background script gets a
 \end{enumerate}
 
 
-\subsection{Update the Data Available in the Database for Items Present on a Certain Supported Domain} \label{sec:use_case_crawl_update_database}
+\subsection{Update the Data Available in the Database for Items Present on a Certain Supported Domain} \label{subsec:use_case_crawl_update_database}
 
 \subsubsection{Brief Description}
 
@@ -956,18 +871,6 @@ The flow of events for this use case can be seen in figure \ref{fig:flow_crawl_u
 \end{enumerate}
 
 
-\subsubsection{Sequence Diagram for the Main Flow}
-
-This use case is triggered by opening a terminal in the crawling module's project folder context. In the terminal the \lstinline$python crawler_caller.py <domain_name>$ command must be run, which takes one mandatory parameter containing the domain name of a supported domain. The crawling process will start from the start\_urls created by requesting the URLs belonging to this domain fom the REST controller that works with ProductUrl-s. The process of accessing a RESTful service is explained in the Sequence Diagram section for the use case in section \ref{sec:use_case_not_cheapest}, and it can be seen in diagram \ref{fig:sequence_not_cheapest_offer}, therefore it will not be detailed again. The URLs are extracted into an array from the returned ProductUrl list, then the resulting array is set as the start\_urls parameter of the spider. Since spiders' names are the domain names they work on, the active spider is set by using the parameter passed in the terminal command. After everything is setup, the crawling process starts and executes as explained in subsubsection \ref{scrapy_arch}. It is worth noting that the spider takes the FillerItem class from the Item classes defined in the 'items.py' file, and fills it with extracted data. After the extraction is complete, the item is returned, having to pass through the Item Pipeline. In the Item Pipeline there is a component defined called 'RestPipeline'. This pipeline component first takes the product crawled from the database, then compares the data crawled to the data already in the database. If a piece of data is different, it is marked as a 'part to update'. At the end of this component, the script goes through every part to update and persists the scraped data in the database using the adequate REST controller. This can be seen in figure \ref{fig:sequence_crawl_update_database}.
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\linewidth]{img/sequence_crawl_update_database.png}
-  \caption{Sequence diagram of the use case found in section \ref{sec:use_case_crawl_update_database}}
-  \label{fig:sequence_crawl_update_database}
-\end{figure}
-
-
 \subsubsection{Preconditions}
 
 \begin{enumerate}
@@ -983,12 +886,187 @@ This use case is triggered by opening a terminal in the crawling module's projec
 \end{enumerate}
 
 
+\section{Class Diagrams}
+
+The appliation is very complex code-wise and is composed of many different modules, because of this, the class diagrams are described in pieces, grouped after the modules.
 
 
+\subsection{RESTful Web Service Module Class Diagram}
 
-% \begin{lstlisting}
-% scrapy genspider [-t template] <name> <domain>
-% \end{lstlisting}
+The class diagram for the RESTful Web Service written in Java can be seen in figure \ref{fig:app_class_rest}. We can see how the module is split into two layers: the Data Access Layer (DAL) and the Business Logic Layer (BLL). The DAL is further split into the entities and repositories package. The entities are used as the base model of the application. The repositories form the connection with the database to extract data which is then mapped to the entities. The BLL is split into four packages. The package handling Data Transfer Objects (DTO) contains the DTO mappings of entities, where cyclic references are eliminated by replacing an object instance in the cycle with the ID of the object. There is a need for conversion between DTOs and entities, so a package was created which contains these classes. The 'wrappers' package contains only the IdWrapper class, which is used to receive id values from requests. The 'operations' package contains the logic of the application, written into separate classes based on the main model element they deal with. The 'controllers' package contains the REST controller definitions for the diffrenet model elements. These classes use the 'operations' package's contents to fulfill their purpose. Some connections between operations, dtos and repositories, and controllers and dtos was not presented on the diagram to reduce from the existing clutter.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{img/app_class_rest.png}
+  \caption{The class diagram of the RESTful web service module}
+  \label{fig:app_class_rest}
+\end{figure}
+
+
+\subsection{Crawling System Module Class Diagram}
+
+The class diagram for the crawling system written with Scrapy in Python can be seen in figure \ref{fig:app_class_crawl}. We can see how the crawler caller 'sets and calls the spiders'. What actually happens here is that the crawler caller actually creates a crawling process for which the used spider is set and some parameters for the spider. The spiders then use the FillerItem class from the items.py collection to add the extracted data to, which then gets returned to the Item Pipeline, and thus to the only component active, RestPipeline, which uses the ProductLoader class to create complete product objects for the detection of database-crawl data differences. The ProductLoader class needs access to the Items defined to perform its task.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\linewidth]{img/app_class_crawl.png}
+  \caption{The class diagram of the Crawling system module}
+  \label{fig:app_class_crawl}
+\end{figure}
+
+\subsection{Web Site Module Class Diagram}
+
+The class diagram of a component built with Angular can be seen in figure \ref{fig:app_class_angular_component}. The web site is built with such components. For the overall simplicity and visibility of the diagram, the components won't be presented like this, but only as a blackbox, which represents this structure. Any operation that a component does happens within its controller, the TypeScript file. 
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\linewidth]{img/app_class_angular_component.png}
+  \caption{The class diagram of an Angular component}
+  \label{fig:app_class_angular_component}
+\end{figure}
+
+The class diagram of the model built in the web site's module can be seen in figure \ref{fig:app_class_angular_model}. The web site uses elements from this model to store data and display on the views according to the Model-View-Controller architectual pattern. In the module's class diagram the model will be shown as a black box, which represents this class diagram.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\linewidth]{img/app_class_angular_model.png}
+  \caption{The model of the web site's module}
+  \label{fig:app_class_angular_model}
+\end{figure}
+
+The component diagram of the web site's module can be seen in figure \ref{fig:app_class_angular_components}. The connections between the Model of the module and the rest of the components is not marked for visibility, but it there is at leas one connection between every component and the model. The Services component represents the layer which interfaces and connects to the REST API via HTTP requests and fetches or pushes data. Every other component uses at least one service from this package, but they are not marked to reduct clutter. Finally, the navigation between the pages is done using the 'AppRouting' component, which knows about every other component and knows what URL to access to get to them. Components use the AppRouting to redirect to other web pages. The 'knowledge connection' between the AppRouting component and every other component has not been shown to reduce clutter. Using these descriptions and the given diagrams, the reader should be able to imagine the class diagram of this module and see why this solution of making the diagram modular was used for better visibility.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.75\linewidth]{img/app_class_angular_components.png}
+  \caption{The diagram of the components in the web page module}
+  \label{fig:app_class_angular_components}
+\end{figure}
+
+
+\subsection{Google Chrome Browser Extension Module Class Diagram}
+
+The class diagram of a Google Chrome browser extension can be seen in figure \ref{fig:app_class_chrome_extension}. Here we can see how the view or the extension (popup.html) relies on its controller (popup.js) to work correctly and set it accordingly. The popup controller, in turn relies on the background script to perform its task correctly in order to have the data to do its own job.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\linewidth]{img/app_class_chrome_extension.png}
+  \caption{The class diagram of the Google Chrome browser extension module}
+  \label{fig:app_class_chrome_extension}
+\end{figure}
+
+
+\section{Description of User Interaction}
+
+In section \ref{sec:use_case}, describing the use cases of the application, there are two, more important use cases described in detail: a user getting the best offer for a product they wish to buy using the Chrome extension, and the system maintainer starting a crawling task to update the data available in the database for items present on a certain supported domain. In the following subsections I will explain and present the sequence diagrams for these use cases.
+
+
+\subsection{Sequence Diagram for the Use Case 'Get the Best Offer for a Product'}
+
+When this use case is triggered, the Chrome extension's background script gets activated via an 'onUpdated' event. When the page finishes loading the background script reads the tab's URL. The read URL's domain name is checked inside a list of supported domains with the \lstinline$checkSupportedDomain(tab)$ function. If the domain is supported, the URL is checked to be the cheapest one for a supported product with the \lstinline$checkCheaperPrice(url, tabId)$ function. This function sends an HTTP request to the REST controller dealing with ProductUrl-s, for getting the cheapest URL which is similar to the pathname of the accessed URL. The REST controller passes the argument to the method dealing with this stuff inside the BLL file which works with ProductUrl-s. The method further calls the ProductUrlRepository's custom function for finding ProductUrl-s in the database, which then retrieves all the URLs which are similar to the passed seach term (the original URL's pathname). The BLL method retrieves the first element of the passed result, in case it is not empty, goes to the URL's product and from the product's URL list it finds the URL with the cheapest price and returns it. The cheapest URL is then returned to the REST controller, which returns it as a response to the previously mentioned HTTP request. Upon receiving the response, the background script stores data about the URL (either it is not the cheapest, in which case we store the cheapest URL, or it is, in which case we only store this fact). The popup script then reads the storage content and based on what it sees it updates the view. The user then clicks on the product URL and is redirected to the cheapest URL. This can be seen in figure \ref{fig:sequence_not_cheapest_offer}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{img/sequence_not_cheapest_offer.png}
+  \caption{Sequence diagram of the use case found in section \ref{subsec:use_case_not_cheapest}}
+  \label{fig:sequence_not_cheapest_offer}
+\end{figure}
+
+
+\subsection{Sequence Diagram for the Use Case 'Update the Data Available in the Database for Items Presenton a Certain Supported Domain'}
+
+This use case is triggered by opening a terminal in the crawling module's project folder context. In the terminal the \lstinline$python crawler_caller.py <domain_name>$ command must be run, which takes one mandatory parameter containing the domain name of a supported domain. The crawling process will start from the start\_urls created by requesting the URLs belonging to this domain fom the REST controller that works with ProductUrl-s. The process of accessing a RESTful service is explained in the Sequence Diagram section for the use case in section \ref{subsec:use_case_not_cheapest}, and it can be seen in diagram \ref{fig:sequence_not_cheapest_offer}, therefore it will not be detailed again. The URLs are extracted into an array from the returned ProductUrl list, then the resulting array is set as the start\_urls parameter of the spider. Since spiders' names are the domain names they work on, the active spider is set by using the parameter passed in the terminal command. After everything is setup, the crawling process starts and executes as explained in subsubsection \ref{scrapy_arch}. It is worth noting that the spider takes the FillerItem class from the Item classes defined in the 'items.py' file, and fills it with extracted data. After the extraction is complete, the item is returned, having to pass through the Item Pipeline. In the Item Pipeline there is a component defined called 'RestPipeline'. This pipeline component first takes the product crawled from the database, then compares the data crawled to the data already in the database. If a piece of data is different, it is marked as a 'part to update'. At the end of this component, the script goes through every part to update and persists the scraped data in the database using the adequate REST controller. This can be seen in figure \ref{fig:sequence_crawl_update_database}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{img/sequence_crawl_update_database.png}
+  \caption{Sequence diagram of the use case found in section \ref{subsec:use_case_crawl_update_database}}
+  \label{fig:sequence_crawl_update_database}
+\end{figure}
+
+
+\section{Description of impementation}
+
+\subsection{MySQL Database}
+
+The database is necessary for persisting the data needed to run this application. The database management system used for this application is MySQL 8.0 because of the fact that it provides a relational database and that it was familiar to use. The database schema and tables have been generated using the Spring framework's functionality, inherited from Hibernate ORM. You can see the database diagram in figure \ref{fig:database_diagram}. For the scope of this application I didn't need a database too large or too complex, and so, it consists of 5 main tables and one connection table, called user\_favourite\_products, to break the user's favourite product many-to-many connection into one-to-many connections. The main tables are the user table, storing data about the application's registered users; the product\_details table, storing specific, non-identifying, data about products; the product\_url table which contains the URLs belonging to certain products; the product\_price\_for\_url table which is in a one-to-one relation with the product\_url table, storing the price and currency that a given web page sells a product; and finally the product table, combining the tables that regard it.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.65\linewidth]{img/database_diagram.png}
+  \caption[]{The database diagram of the used MySQL database}
+  \label{fig:database_diagram}
+\end{figure}
+
+
+\subsection{System Composition}
+
+The proposed project relies on several modules for providing an accessible, easy to use tool for product price tracking. The component providing a means of communication between every other module is the RESTful Web Server that acts as a uniform means of interacting with the database of the application, as well as providing some basic functionality, such as validation of user logins. The modules being at the extremities of the system are the Web Crawling module, which contains the crawlers. The Web site is the element which provides the most functionality to the end user. The last module in the application is the Google Chrome browser extension. These modules interact to create the complete application.
+
+The RESTful Web server connects with the database to standardize and make the connection to the database more accessible. This is done via the RESTful Web Service provided by it, which is accessible via HTTP requests to a series of URLs. The fact that HTTP is so widespread and there are ways to issue HTTP requests from almost any platform confers a very wide accessibility to it. The rest of the components connect to the web service via the exposed HTTP requests.
+
+The crawling module connects to the web server in two points: once for requesting the URLs belonging to the domain to be crawled and then when it sends crawled data back to the web server to be peristed. The URL requesting section is done as part of the script that calls the adequate spiders based on the passed argument. Returning scraped data to the server is done in the final component of the Item Pipeline.
+
+The web site populates its views with the data sent by the web service as a response to the web site's requests. Additionally, the web site sends data to the web service such as a user's authentication information to be validated, or updated or new data, such as a freshly registered user's data, new favourite product relations, new or updated products or product URLs.
+
+The Google Chrome extension communicates with the web service every time a new web page is opened to check if the page belongs to a supported product. This is necessary so that the extension can constantly provide useful information to the user at a distance of a click.
+
+This structure can be seen on figure \ref{fig:app_component_diagram}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{img/app_component_diagram_actual.png}
+  \caption[]{Component diagram of of the proposed application}
+  \label{fig:app_component_diagram}
+\end{figure}
+
+
+\subsubsection{RESTful Web Service Module Overview}
+
+The web service has a layered architecture, dividing the module into two layers. The Data Access Layer, which connects to the database through the repository classes and exposes CRUD and some other functionalities. The second layer is the Business Logic Layer, which deals with implementing the methods in the Operations component which will then be exposed though the REST Controllers. The system is unable to work with pure entities, so we will need to convert them to Data Transfer Objects to eliminate cyclicity while serializing the objects returned by the methods in the Operations component. This can be seen on figure \ref{fig:app_conceptual_architecture_rest}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.65\linewidth]{img/app_conceptual_architecture_rest.png}
+  \caption[]{Conceptual architecture of the RESTful web service}
+  \label{fig:app_conceptual_architecture_rest}
+\end{figure}
+
+
+\subsubsection{Crawling System Module Overview}
+
+The crawling system's composition has been discussed in section \ref{scrapy_arch} and can be seen in figure \ref{fig:scrapy_architecture}. The crawling module that this application uses is composed of a script that calls the crawling process and the crawling system with several subcomponents. The crawling system contains a component with spiders, the Items used by them and the components of the Item Pipeline through which the returned Items pass through. This can be seen on figure \ref{fig:app_conceptual_architecture_crawl}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.65\linewidth]{img/app_conceptual_architecture_crawl.png}
+  \caption[]{Conceptual architecture of the crawling system}
+  \label{fig:app_conceptual_architecture_crawl}
+\end{figure}
+
+
+\subsubsection{Web Site Module Overview}
+
+The web site is built using Angular, so it is sorted into components. Each component can either be a different web page or just a section of a web page. The components are built around the Model-View-Controller architecture. The components are composed of a controller script part, a view part, which is an HTML file, and a style sheet. The controller uses the model to load data with which the view is updated to show. The rest of the MVC functioning cycle is omitted from the diagram, as it is strictly limited to the architectual layout of the module. In essence, the omitted part describes the fact that the user reacts to what they see in the view by interacting with the controller functionalities linked to the view elements. The view elements take advantage of Cascading Style Sheets (CSS) to enhance their visibility and user friendliness. This can be seen on figure \ref{fig:app_conceptual_architecture_site}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.65\linewidth]{img/app_conceptual_architecture_site.png}
+  \caption[]{Conceptual architecture of the web site}
+  \label{fig:app_conceptual_architecture_site}
+\end{figure}
+
+
+\subsubsection{Google Chrome Browser Extension Module Architecture Overview}
+
+The the Google Chrome browser extension is composed of the background script, the popup script and the popul view. The background script runs when a new page is opened to get its URL, which is the checked in the database according to figure \ref{fig:app_component_diagram}. In case the URL belongs to a supported product, some data is set in the browser's storage according to the price of the product. Any time a page closes, the entry belonging to that page is eliminated from the storage. The popup script checks the content of the storage if the current tab appears as one for which it needs to display something in the view. In case this is the case, it updates the 'popup.html' file's DOM to show a specific information. This can be seen on figure \ref{fig:app_conceptual_architecture_chrome_extension}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.65\linewidth]{img/app_conceptual_architecture_chrome_extension.png}
+  \caption[]{Conceptual architecture of the Google Chrome browser extension}
+  \label{fig:app_conceptual_architecture_chrome_extension}
+\end{figure}
 
 
 \chapter{Testing and Validation}
