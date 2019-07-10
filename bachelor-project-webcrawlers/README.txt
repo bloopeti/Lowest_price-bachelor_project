@@ -1,0 +1,1 @@
+Before trying to run this module of the project make sure you have venv activated.

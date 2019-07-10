@@ -31,32 +31,36 @@ from scrapy.utils.project import get_project_settings
 #         p.start()
 #         p.join()
 
+existing_spiders = ['emag', 'pcgarage']
 
 if len(sys.argv) == 2:
     domain_name = sys.argv[1]
 
-    url = "http://localhost:9906/app/productUrl/get/" + domain_name
+    if domain_name.strip() in existing_spiders:
+        url = "http://localhost:9906/app/productUrl/get/" + domain_name
 
-    response = requests.get(url=url)
-    data = json.loads(response.text)
+        response = requests.get(url=url)
+        data = json.loads(response.text)
 
-    scrapy_settings = get_project_settings()
+        scrapy_settings = get_project_settings()
 
-    start_urls = []
-    for productUrl in data:
-        start_urls.append(productUrl['url'])
+        start_urls = []
+        for productUrl in data:
+            start_urls.append(productUrl['url'])
 
-    if response.ok:
-        # for productUrl in data:
-        process = CrawlerProcess(scrapy_settings)
+        if response.ok:
+            # for productUrl in data:
+            process = CrawlerProcess(scrapy_settings)
 
-        process.crawl(domain_name,
-                      start_urls=start_urls)
-        # start_url=productUrl['url'],
-        # product_id=productUrl['productId'])
-        process.start()
+            process.crawl(domain_name,
+                          start_urls=start_urls)
+            # start_url=productUrl['url'],
+            # product_id=productUrl['productId'])
+            process.start()
+        else:
+            print("\tCouldn't access the webservice! Status code: %d" % response.status_code)
     else:
-        print("\tCouldn't access the webservice! Status code: %d" % response.status_code)
+        print("\tThe given domain is not supported!\n\tSupported domains are: ", ', '.join(existing_spiders))
 else:
-    print("\tIncorrect number of arguments!\nTwo arguments are required: this file's path and the domain you wish to "
+    print("\tIncorrect number of arguments!\n\tTwo arguments are required: this file's path and the domain you wish to "
           "crawl and update")
